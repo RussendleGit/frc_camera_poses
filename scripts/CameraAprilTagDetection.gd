@@ -5,6 +5,7 @@ extends Node3D
 @export var cam_rotation_degrees: Vector3
 @export var vertical_view_angle_degrees: float = 45
 @export var horizontal_view_angle_degrees: float = 45
+@export var max_distance: float = 200.0 / 39.37
 var vertical_view_angle_rad: float
 var horizontal_view_angle_rad: float
 
@@ -54,14 +55,15 @@ func set_april_tags(json_path: String = "2026-rebuilt-welded.json"):
 		
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _physics_process(delta: float) -> void:
-	var unblocked_tags = update_ray_casts()
-
+	# all can be done within for loop, and maybe there should be multiple cameras, so that there can be just one set of tags
+	var unblocked_tags = filter_tags_by_raycast()
 	var tags_within_view_angle = filter_tags_by_angle(unblocked_tags)
-	print(tags_within_view_angle)	
+	var tags_within_distance = filter_tags_by_distance(tags_within_view_angle)
+	print(tags_within_distance)	
 	print()
 
 ## updates the raycasts, gives a list of the tags that are not blocked by anything
-func update_ray_casts() -> Array[Node3D]:
+func filter_tags_by_raycast() -> Array[Node3D]:
 	var unblocked_april_tags: Array[Node3D] = []
 
 	# get every tag in the tag directory in the camera
@@ -85,7 +87,6 @@ func update_ray_casts() -> Array[Node3D]:
 func filter_tags_by_angle(tags: Array[Node3D]) -> Array[Node3D]:
 	# horizontal
 	var tags_in_h_view: Array[Node3D] = []
-	print("h")
 	for tag in tags:
 		var direction = tag.position - camera_marker.position
 		
@@ -106,7 +107,13 @@ func filter_tags_by_angle(tags: Array[Node3D]) -> Array[Node3D]:
 	
 	return tags_in_h_view
 
+func filter_tags_by_distance(tags: Array[Node3D]) -> Array[Node3D]:
+	var tags_within_range: Array[Node3D] = []
+	
+	for tag in tags:
+		if camera_marker.position.distance_to(tag.position) < max_distance:
+			tags_within_range.append(tag)
 
-		
+	return tags_within_range		
 
 	

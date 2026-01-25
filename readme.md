@@ -14,12 +14,12 @@
 ## Phase 2: Logic & Math (The "Visibility Script")
 
 - [x] Field of View (FOV) Filter: Implement a Dot Product check to ensure tags are within the camera’s horizontal and vertical cone.
-- [ ] Distance Filter: Define a MAX_DISTANCE constant (e.g., 5 meters) to simulate camera resolution limits.
-- [ ] Angle of Incidence Filter: Ensure the robot isn't looking at the back of a tag or at a graze angle (>70°).
-- [ ] Multi-Point Raycasting: 
-  - [ ] Access PhysicsDirectSpaceState3D.
-  - [ ] Loop through the 4 Marker3D nodes on a tag.
-  - [ ] Verify that all four rays return no obstructions (or hit the tag itself)-
+- [x] Distance Filter: Define a MAX_DISTANCE constant (e.g., 5 meters) to simulate camera resolution limits.
+- [ ] Tag Skew filter: define a max skew, and filter by that
+- [x] Multi-Point Raycasting: 
+  - [x] Access PhysicsDirectSpaceState3D.
+  - [x] Loop through the 4 Marker3D nodes on a tag.
+  - [x] Verify that all four rays return no obstructions (or hit the tag itself)-
 
 ## Phase 3: The Data Runner (Grid Search)
 
