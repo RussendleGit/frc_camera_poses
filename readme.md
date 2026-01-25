@@ -3,7 +3,7 @@
 ## Phase 1: Scene & Asset Setup
 
 - [x] Import Field Model: Bring in your 3D field/game arena as a static body with collision.
-- [] Create Tag Template:
+- [x] Create Tag Template:
   - [x] Create a Node3D with a simple Quad mesh.
   - [x] Add four Marker3D nodes at the exact corners of the quad.
   - [x] Add the Tag to a specific Physics Layer (e.g., Layer 2) to keep raycasts clean.
@@ -13,7 +13,7 @@
 
 ## Phase 2: Logic & Math (The "Visibility Script")
 
-- [ ] Field of View (FOV) Filter: Implement a Dot Product check to ensure tags are within the camera’s horizontal and vertical cone.
+- [x] Field of View (FOV) Filter: Implement a Dot Product check to ensure tags are within the camera’s horizontal and vertical cone.
 - [ ] Distance Filter: Define a MAX_DISTANCE constant (e.g., 5 meters) to simulate camera resolution limits.
 - [ ] Angle of Incidence Filter: Ensure the robot isn't looking at the back of a tag or at a graze angle (>70°).
 - [ ] Multi-Point Raycasting: 
