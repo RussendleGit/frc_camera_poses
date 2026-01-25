@@ -1,0 +1,67 @@
+[gd_scene load_steps=4 format=3 uid="uid://dh3npgcvbwq4y"]
+
+[sub_resource type="GDScript" id="GDScript_faknn"]
+script/source = "extends Node3D
+
+@onready var label_3d: Label3D = $Label3D
+
+# Called when the node enters the scene tree for the first time.
+func _ready() -> void:
+	label_3d.text = name
+	
+
+
+# Called every frame. 'delta' is the elapsed time since the previous frame.
+func _process(delta: float) -> void:
+	pass
+"
+
+[sub_resource type="QuadMesh" id="QuadMesh_bifcq"]
+size = Vector2(0.165, 0.165)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_e10p0"]
+albedo_color = Color(1, 0, 1, 1)
+
+[node name="AprilTag" type="Node3D"]
+script = SubResource("GDScript_faknn")
+
+[node name="AprilTagMesh" type="MeshInstance3D" parent="."]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0, 0)
+mesh = SubResource("QuadMesh_bifcq")
+surface_material_override/0 = SubResource("StandardMaterial3D_e10p0")
+
+[node name="MarkerUR" type="Marker3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.083, 0.083, 0)
+
+[node name="RayCast3D" type="RayCast3D" parent="MarkerUR"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.02)
+debug_shape_custom_color = Color(0.654902, 0, 1, 1)
+debug_shape_thickness = 1
+
+[node name="MarkerUL" type="Marker3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.083, 0.083, 0)
+
+[node name="RayCast3D" type="RayCast3D" parent="MarkerUL"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.02)
+debug_shape_custom_color = Color(0.654902, 0, 1, 1)
+debug_shape_thickness = 1
+
+[node name="MarkerDR" type="Marker3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.083, -0.083, 0)
+
+[node name="RayCast3D" type="RayCast3D" parent="MarkerDR"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.02)
+debug_shape_custom_color = Color(0.654902, 0, 1, 1)
+debug_shape_thickness = 1
+
+[node name="MarkerDL" type="Marker3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.083, -0.083, 0)
+
+[node name="RayCast3D" type="RayCast3D" parent="MarkerDL"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.02)
+debug_shape_custom_color = Color(0.654902, 0, 1, 1)
+debug_shape_thickness = 1
+
+[node name="Label3D" type="Label3D" parent="."]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0, -0.000946313)
+text = "99"
