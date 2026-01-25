@@ -1,26 +1,37 @@
 extends Node3D
 
 
-@export var cam_position_inches: Vector3
-@export var cam_rotation_degrees: Vector3
+
 @export var vertical_view_angle_degrees: float = 45
 @export var horizontal_view_angle_degrees: float = 45
 @export var max_distance: float = 200.0 / 39.37
-var vertical_view_angle_rad: float
-var horizontal_view_angle_rad: float
 
+@onready var camera_attributes: Array[Node3D] = []
 @onready var tag_points = ["MarkerUR", "MarkerUL", "MarkerDR", "MarkerDL"]
 @onready var tag_directory: Node3D = $TagDirectory
-@onready var camera_marker: Marker3D = get_node("CameraMarker") 
+var camera_attributes_index_focus: int = 0
  
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	set_april_tags()
+	add_camera(Vector3(2.0, 2.0, 0.0), Vector3(0.0, 0.0, 0.0))
+	add_camera(Vector3(8.0, 4.0, 0.0), Vector3(0.0, 0.0, 0.0))
+	for i in range(len(camera_attributes)):
+		camera_attributes[i].name = str(i)
+		add_child(camera_attributes[i])
+	update_raycasts_for_next_itteration(camera_attributes[camera_attributes_index_focus])
 
 
+## adds a camera, also flips y and z for ease of use
+func add_camera(cam_position_meters: Vector3, cam_rotation_degrees: Vector3) -> void:
+	var camera_scene = load("res://scenes/camera_marker.tscn")
+	var cam_instance = camera_scene.instantiate()
+	cam_instance.position = Vector3(cam_position_meters.x, cam_position_meters.z, cam_position_meters.y)
+	cam_instance.rotation_degrees = cam_rotation_degrees 
+	camera_attributes.append(cam_instance)
 
 ## When initializing the camera, this creates the needed april tags
-func set_april_tags(json_path: String = "2026-rebuilt-welded.json"):
+func set_april_tags(json_path: String = "2026-rebuilt-welded.json") -> void:
 	# Read JSON, and get tags
 	var file = FileAccess.open(json_path, FileAccess.READ)
 	var parse_text = JSON.parse_string(file.get_as_text())
@@ -44,7 +55,7 @@ func set_april_tags(json_path: String = "2026-rebuilt-welded.json"):
 		var x = tags[i]["pose"]["rotation"]["quaternion"]["X"]
 		var y = tags[i]["pose"]["rotation"]["quaternion"]["Y"]
 		var z = tags[i]["pose"]["rotation"]["quaternion"]["Z"]
-		var quat = Basis(Quaternion(w, x, y, z))
+		var quat = Basis(Quaternion(w, x, y, z)) # wrong, but it works?
 		tag_instance.transform.basis = quat
 
 		# flip x and y, and rotate 90
@@ -56,16 +67,32 @@ func set_april_tags(json_path: String = "2026-rebuilt-welded.json"):
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _physics_process(delta: float) -> void:
 	# all can be done within for loop, and maybe there should be multiple cameras, so that there can be just one set of tags
-	var unblocked_tags = filter_tags_by_raycast()
-	var tags_within_view_angle = filter_tags_by_angle(unblocked_tags)
-	var tags_within_distance = filter_tags_by_distance(tags_within_view_angle)
+	
+	var unblocked_tags = filter_tags_by_raycast(camera_attributes[camera_attributes_index_focus])
+	var tags_within_view_angle = filter_tags_by_angle(camera_attributes[camera_attributes_index_focus], unblocked_tags)
+	var tags_within_distance = filter_tags_by_distance(camera_attributes[camera_attributes_index_focus], tags_within_view_angle)
+	print(camera_attributes[camera_attributes_index_focus].name)
 	print(tags_within_distance)	
 	print()
 
-## updates the raycasts, gives a list of the tags that are not blocked by anything
-func filter_tags_by_raycast() -> Array[Node3D]:
-	var unblocked_april_tags: Array[Node3D] = []
+	camera_attributes_index_focus += 1
+	if (camera_attributes_index_focus >= len(camera_attributes)):
+		camera_attributes_index_focus = 0
+	update_raycasts_for_next_itteration(camera_attributes[camera_attributes_index_focus])
 
+## because you can't force update a raycast safely
+## this will just update the positions for the next camera, and let godot handle it
+func update_raycasts_for_next_itteration(next_camera_attribute: Node3D) -> void:
+	for tag in tag_directory.get_children():
+		for marker_name in tag_points:
+			var marker = tag.get_node(marker_name)
+			var ray_cast = marker.get_node("RayCast3D")
+			ray_cast.target_position = ray_cast.to_local(next_camera_attribute.position)
+		
+## gives a list of the tags that are not blocked by anything
+func filter_tags_by_raycast(camera_attribute: Node3D) -> Array[Node3D]:
+	var unblocked_april_tags: Array[Node3D] = []
+	
 	# get every tag in the tag directory in the camera
 	for tag in tag_directory.get_children():
 		# for each corner of the april tag scene
@@ -73,7 +100,6 @@ func filter_tags_by_raycast() -> Array[Node3D]:
 		for marker_name in tag_points:
 			var marker = tag.get_node(marker_name)
 			var ray_cast = marker.get_node("RayCast3D")
-			ray_cast.target_position = ray_cast.to_local(camera_marker.position)
 			
 			if ray_cast.is_colliding():
 				see_all_four_corners = false
@@ -84,11 +110,11 @@ func filter_tags_by_raycast() -> Array[Node3D]:
 	return unblocked_april_tags
 
 ## get the tags that are within view angles
-func filter_tags_by_angle(tags: Array[Node3D]) -> Array[Node3D]:
+func filter_tags_by_angle(camera_attribute: Node3D, tags: Array[Node3D]) -> Array[Node3D]:
 	# horizontal
 	var tags_in_h_view: Array[Node3D] = []
 	for tag in tags:
-		var direction = tag.position - camera_marker.position
+		var direction = tag.position - camera_attribute.position
 		
 		# get 2d values for x, and z
 		var direction_2d_yaw = Vector2(direction.x, direction.z)
@@ -99,19 +125,19 @@ func filter_tags_by_angle(tags: Array[Node3D]) -> Array[Node3D]:
 		var angle_pitch = direction_2d_pitch.angle()
 		
 		# account rotation of marker
-		var angle_diff_yaw = wrapf(angle_yaw + camera_marker.rotation.y, -PI, PI)
-		var angle_diff_pitch = wrapf(angle_pitch + camera_marker.rotation.z, -PI, PI)
+		var angle_diff_yaw = wrapf(angle_yaw + camera_attribute.rotation.y, -PI, PI)
+		var angle_diff_pitch = wrapf(angle_pitch + camera_attribute.rotation.z, -PI, PI)
 		
 		if abs(angle_diff_yaw) <= deg_to_rad(horizontal_view_angle_degrees) && abs(angle_diff_pitch) <= deg_to_rad(vertical_view_angle_degrees):
 			tags_in_h_view.append(tag)
 	
 	return tags_in_h_view
 
-func filter_tags_by_distance(tags: Array[Node3D]) -> Array[Node3D]:
+func filter_tags_by_distance(camera_attribute: Node3D, tags: Array[Node3D]) -> Array[Node3D]:
 	var tags_within_range: Array[Node3D] = []
 	
 	for tag in tags:
-		if camera_marker.position.distance_to(tag.position) < max_distance:
+		if camera_attribute.position.distance_to(tag.position) < max_distance:
 			tags_within_range.append(tag)
 
 	return tags_within_range		

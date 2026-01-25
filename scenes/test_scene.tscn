@@ -2,7 +2,7 @@
 
 [ext_resource type="PackedScene" uid="uid://xicth2u18nl" path="res://scenes/feild_collision.tscn" id="1_tujmb"]
 [ext_resource type="Script" path="res://scripts/CameraControl.gd" id="3_wiyru"]
-[ext_resource type="PackedScene" uid="uid://boxl62vo7i7ik" path="res://scenes/Camera.tscn" id="4_ol6rw"]
+[ext_resource type="PackedScene" uid="uid://boxl62vo7i7ik" path="res://scenes/robot.tscn" id="4_ol6rw"]
 
 [node name="Node3D" type="Node3D"]
 
@@ -15,11 +15,5 @@ transform = Transform3D(0.68035, 0.367284, -0.634213, 0.129538, 0.791474, 0.5973
 script = ExtResource("3_wiyru")
 
 [node name="Camera2" parent="." instance=ExtResource("4_ol6rw")]
-
-[node name="CameraMarker" parent="Camera2" index="0"]
-transform = Transform3D(0.991445, -0.130526, 0, 0.130526, 0.991445, 0, 0, 0, 1, 2.13605, 0.650487, 2.87675)
-
-[node name="Forward" parent="Camera2/CameraMarker" index="0"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
 
 [editable path="Camera2"]

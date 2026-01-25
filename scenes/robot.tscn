@@ -1,3 +1,8 @@
-[gd_scene format=3 uid="uid://bnwqpjtwsrb25"]
+[gd_scene load_steps=2 format=3 uid="uid://boxl62vo7i7ik"]
+
+[ext_resource type="Script" path="res://scripts/CameraAprilTagDetection.gd" id="1_mfk7f"]
 
 [node name="Robot" type="Node3D"]
+script = ExtResource("1_mfk7f")
+
+[node name="TagDirectory" type="Node3D" parent="."]
