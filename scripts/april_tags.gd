@@ -1,5 +1,6 @@
 extends Node3D
 
+
 ## When initializing the camera, this creates the needed april tags
 func set_april_tags(json_path: String = "2026-rebuilt-welded.json") -> void:
 	# Read JSON, and get tags
@@ -33,3 +34,13 @@ func set_april_tags(json_path: String = "2026-rebuilt-welded.json") -> void:
 		tag_instance.rotation.y = tag_instance.rotation.x + deg_to_rad(90)
 		tag_instance.rotation.x = temp_x
 		add_child(tag_instance)
+
+## because you can't force update a raycast safely
+## this will just update the positions for the next camera, and let godot handle it
+func update_raycasts_for_next_iteration(next_camera_attribute: Node3D) -> void:
+	for tag in get_children():
+		for ray_cast in tag.get_ray_casts():
+			ray_cast.target_position = ray_cast.to_local(next_camera_attribute.global_position)
+
+func get_all_tags() -> Array[Node]:
+	return get_children()
