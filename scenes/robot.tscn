@@ -1,7 +1,9 @@
-[gd_scene load_steps=37 format=3 uid="uid://boxl62vo7i7ik"]
+[gd_scene load_steps=39 format=3 uid="uid://boxl62vo7i7ik"]
 
 [ext_resource type="Script" path="res://scripts/CameraAprilTagDetection.gd" id="1_mfk7f"]
 [ext_resource type="ArrayMesh" uid="uid://fnxgmsa7vflt" path="res://assets/imported/simplified-proto.res" id="2_1h3pe"]
+[ext_resource type="Script" path="res://scripts/april_tags.gd" id="2_xdo14"]
+[ext_resource type="Script" path="res://scripts/cameras.gd" id="3_at58s"]
 
 [sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_vf2cj"]
 points = PackedVector3Array(-0.300194, 0.736237, 0.250473, -0.491472, 0.692084, 0.162186, -0.491472, 0.736237, 0.162186, -0.544257, 0.706297, 0.2992, -0.285452, 0.706804, 0.176926, -0.44732, 0.692084, 0.29463, -0.535625, 0.736237, 0.29463, -0.285452, 0.736237, 0.176926, -0.285452, 0.706804, 0.235759, -0.417885, 0.736237, 0.29463, -0.44732, 0.692084, 0.162186, -0.491472, 0.692084, 0.29463, -0.300194, 0.706804, 0.250473, -0.535625, 0.736237, 0.265188, -0.417885, 0.706804, 0.29463)
@@ -112,8 +114,10 @@ material = SubResource("StandardMaterial3D_d62q8")
 script = ExtResource("1_mfk7f")
 
 [node name="TagDirectory" type="Node3D" parent="."]
+script = ExtResource("2_xdo14")
 
 [node name="CameraDirectory" type="Node3D" parent="."]
+script = ExtResource("3_at58s")
 
 [node name="Forward" type="RayCast3D" parent="CameraDirectory"]
 transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0, 0)
