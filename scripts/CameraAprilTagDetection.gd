@@ -3,20 +3,21 @@ extends Node3D
 @onready var camera_3d: Camera3D = $"../Camera3D"
 
 @export var camera_fov_degrees: float = 100.0
-
 @export var max_distance: float = 200.0 / 39.37
 @export var max_tag_angle_to_cam: float = 80
+@export var slow_physics: bool = true
 
 @onready var camera_attributes: Array[Node3D] = []
 @onready var tag_points = ["MarkerUR", "MarkerUL", "MarkerDR", "MarkerDL"]
 @onready var tag_directory: Node3D = $TagDirectory
+
 var camera_attributes_index_focus: int = 0
  
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	set_april_tags()
-	add_camera(Vector3(2.0, 2.0, 0.0), Vector3(0.0, -45.0, 20.0))
-	add_camera(Vector3(9.0, 7.0, 0.0), Vector3(0.0, 45.0, 20.0))
+	add_camera(Vector3(7.1325 / 39.37, 8.4175 / 39.37, 18.8323 / 39.37), Vector3(0.0, -25.6, 1.5))
+	add_camera(Vector3(7.1325 / 39.37, -8.4175 / 39.37, 18.8323 / 39.37), Vector3(0.0, -25.6, -1.5))
 	for i in range(len(camera_attributes)):
 		camera_attributes[i].name = str(i)
 		add_child(camera_attributes[i])
@@ -28,7 +29,7 @@ func add_camera(cam_position_meters: Vector3, cam_rotation_degrees: Vector3) -> 
 	var camera_scene = load("res://scenes/camera_marker.tscn")
 	var cam_instance = camera_scene.instantiate()
 	cam_instance.position = Vector3(cam_position_meters.x, cam_position_meters.z, cam_position_meters.y)
-	cam_instance.rotation_degrees = cam_rotation_degrees 
+	cam_instance.rotation_degrees = Vector3(cam_rotation_degrees.x, cam_rotation_degrees.z, cam_rotation_degrees.y)
 	camera_attributes.append(cam_instance)
 
 ## When initializing the camera, this creates the needed april tags
@@ -67,20 +68,10 @@ func set_april_tags(json_path: String = "2026-rebuilt-welded.json") -> void:
 		
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _physics_process(delta: float) -> void:
-	# all can be done within for loop, and maybe there should be multiple cameras, so that there can be just one set of tags
-	print("camera: ", camera_attributes[camera_attributes_index_focus].name)
 	var unblocked_tags = filter_tags_by_raycast()
-	print(unblocked_tags)
-	print()
 	var tags_within_view_angle = filter_tags_by_cam_view_angle(camera_attributes[camera_attributes_index_focus], unblocked_tags)
-	print(tags_within_view_angle)
-	print()
-	var tags_within_distance = filter_tags_by_distance(camera_attributes[camera_attributes_index_focus], tags_within_view_angle)
-	print(tags_within_distance)
-	print()
+	var tags_within_distance = filter_tags_by_distance(camera_attributes[camera_attributes_index_focus], tags_within_view_angle)	
 	var tags_within_tag_angle = filter_tags_by_tag_angle(camera_attributes[camera_attributes_index_focus], tags_within_distance)
-	print(tags_within_tag_angle)	
-	print()
 
 	camera_attributes_index_focus += 1
 	if (camera_attributes_index_focus >= len(camera_attributes)):
