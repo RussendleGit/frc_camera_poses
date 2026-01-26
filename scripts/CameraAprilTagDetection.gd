@@ -2,8 +2,8 @@ extends Node3D
 
 @onready var camera_3d: Camera3D = $"../Camera3D"
 
-@export var vertical_view_angle_degrees: float = 45
-@export var horizontal_view_angle_degrees: float = 45
+@export var camera_fov_degrees: float = 100.0
+
 @export var max_distance: float = 200.0 / 39.37
 @export var max_tag_angle_to_cam: float = 80
 
@@ -68,12 +68,17 @@ func set_april_tags(json_path: String = "2026-rebuilt-welded.json") -> void:
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _physics_process(delta: float) -> void:
 	# all can be done within for loop, and maybe there should be multiple cameras, so that there can be just one set of tags
-	
+	print("camera: ", camera_attributes[camera_attributes_index_focus].name)
 	var unblocked_tags = filter_tags_by_raycast()
+	print(unblocked_tags)
+	print()
 	var tags_within_view_angle = filter_tags_by_cam_view_angle(camera_attributes[camera_attributes_index_focus], unblocked_tags)
+	print(tags_within_view_angle)
+	print()
 	var tags_within_distance = filter_tags_by_distance(camera_attributes[camera_attributes_index_focus], tags_within_view_angle)
+	print(tags_within_distance)
+	print()
 	var tags_within_tag_angle = filter_tags_by_tag_angle(camera_attributes[camera_attributes_index_focus], tags_within_distance)
-	print(camera_attributes[camera_attributes_index_focus].name)
 	print(tags_within_tag_angle)	
 	print()
 
@@ -81,18 +86,22 @@ func _physics_process(delta: float) -> void:
 	if (camera_attributes_index_focus >= len(camera_attributes)):
 		camera_attributes_index_focus = 0
 	update_raycasts_for_next_iteration(camera_attributes[camera_attributes_index_focus])
-	camera_3d.position = camera_attributes[camera_attributes_index_focus].position
-	camera_3d.rotation.y = camera_attributes[camera_attributes_index_focus].rotation.y - deg_to_rad(90)
-	camera_3d.rotation.x = camera_attributes[camera_attributes_index_focus].rotation.z 
+	
+	
 
 ## because you can't force update a raycast safely
 ## this will just update the positions for the next camera, and let godot handle it
 func update_raycasts_for_next_iteration(next_camera_attribute: Node3D) -> void:
 	for tag in tag_directory.get_children():
+		tag.visible = true
 		for marker_name in tag_points:
 			var marker = tag.get_node(marker_name)
 			var ray_cast = marker.get_node("RayCast3D")
 			ray_cast.target_position = ray_cast.to_local(next_camera_attribute.position)
+	
+	camera_3d.position = camera_attributes[camera_attributes_index_focus].position
+	camera_3d.rotation.y = camera_attributes[camera_attributes_index_focus].rotation.y - deg_to_rad(90)
+	camera_3d.rotation.x = camera_attributes[camera_attributes_index_focus].rotation.z 
 		
 ## gives a list of the tags that are not blocked by anything
 ## doesn't need camera attribute as the raycasts have been already handled by update_raycasts_for_next_iteration
@@ -134,9 +143,10 @@ func filter_tags_by_cam_view_angle(camera_attribute: Node3D, tags: Array[Node3D]
 		var angle_diff_yaw = wrapf(angle_yaw + camera_attribute.rotation.y, -PI, PI)
 		var angle_diff_pitch = wrapf(angle_pitch + camera_attribute.rotation.z, -PI, PI)
 		
-		if abs(angle_diff_yaw) <= deg_to_rad(horizontal_view_angle_degrees) && abs(angle_diff_pitch) <= deg_to_rad(vertical_view_angle_degrees):
+		if abs(angle_diff_yaw) <= deg_to_rad(camera_fov_degrees) && abs(angle_diff_pitch) <= deg_to_rad(camera_fov_degrees):
 			tags_in_h_view.append(tag)
 	
+	camera_3d.fov = camera_fov_degrees # for debug, to show what camera could be seeing in view port
 	return tags_in_h_view
 
 func filter_tags_by_distance(camera_attribute: Node3D, tags: Array[Node3D]) -> Array[Node3D]:
@@ -145,22 +155,22 @@ func filter_tags_by_distance(camera_attribute: Node3D, tags: Array[Node3D]) -> A
 	for tag in tags:
 		if camera_attribute.position.distance_to(tag.position) < max_distance:
 			tags_within_range.append(tag)
-
+		else:
+			tag.visible = false # for debug, to show what the camera isn't seeing
 	return tags_within_range		
 
 func filter_tags_by_tag_angle(camera_attribute: Node3D, tags: Array[Node3D]) -> Array[Node3D]:
 	var tags_within_angle: Array[Node3D] = []
-
+	
 	for tag in tags:
 		# take away 90 from yaw, because that's the default rotation for april tags
 		var yaw = wrapf((tag.rotation.y - deg_to_rad(90.0)) - camera_attribute.rotation.y, -PI, PI)
 		var pitch = wrapf(tag.rotation.z - camera_attribute.rotation.z, -PI, PI)
 
-		print(tag.name)
-		print(rad_to_deg(yaw))
-		print(rad_to_deg(pitch))
-		print()
 		if abs(yaw) <= deg_to_rad(max_tag_angle_to_cam) && abs(pitch) <= deg_to_rad(max_tag_angle_to_cam):
 			tags_within_angle.append(tag)
+		else:
+			tag.visible = false # for debug, to show what the camera isn't seeing
 		
+	
 	return tags_within_angle
