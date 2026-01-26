@@ -206,7 +206,8 @@ func move_robot():
 	var new_rot: float = camera_directory.global_rotation_degrees.y + rotation_increment_degrees
 	if new_rot < 180.0 - rotation_increment_degrees: 
 		camera_directory.global_rotation_degrees.y += rotation_increment_degrees
-		
+		return
+	print("reset")
 	camera_directory.global_rotation.y = -PI + 0.0001 # reset rotation after it completes a full rotation
 	
 	camera_directory.global_position.x += position_translation_increment.x
