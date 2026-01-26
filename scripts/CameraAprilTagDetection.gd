@@ -7,9 +7,10 @@ extends Node3D
 @export var max_tag_angle_to_cam: float = 80
 @export var slow_physics: bool = true
 
-@export var num_poses_grid: Vector2 = Vector2(20.0, 20.0)
-@export var rotation_increment_degrees: float = 15
+@export var num_poses_grid: Vector2 = Vector2(40, 40)
+@export var rotation_increment_degrees: float = 1
 @export var camera_translation_increment: float = 0.1
+@export var field_dimentions_meters: Vector2 = Vector2(16.540988, 8.069326)
 
 @onready var camera_attributes: Array[Node3D] = []
 @onready var tag_points = ["MarkerUR", "MarkerUL", "MarkerDR", "MarkerDL"]
@@ -18,10 +19,12 @@ extends Node3D
 @onready var allowed_areas: Node3D = $AllowedAreas
 
 var camera_attributes_index_focus: int = 0
+var position_translation_increment: Vector2
 
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
+	position_translation_increment = Vector2(field_dimentions_meters.x / num_poses_grid.x, field_dimentions_meters.y / num_poses_grid.y)
 	set_april_tags()
 	add_camera(Vector3(0.0, 0.0, 0.4), Vector3()) 
 	for i in range(len(camera_attributes)):
@@ -74,7 +77,6 @@ func set_april_tags(json_path: String = "2026-rebuilt-welded.json") -> void:
 		
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _physics_process(delta: float) -> void:
-	print(camera_attributes[camera_attributes_index_focus].name)
 
 	var current_camera_attribute = camera_attributes[camera_attributes_index_focus]
 	var unblocked_tags = filter_tags_by_raycast()
@@ -85,6 +87,7 @@ func _physics_process(delta: float) -> void:
 	camera_attributes_index_focus += 1
 	if (camera_attributes_index_focus >= len(camera_attributes)):
 		camera_attributes_index_focus = 0
+		move_robot()
 
 	update_raycasts_for_next_iteration(camera_attributes[camera_attributes_index_focus])
 	
@@ -176,3 +179,23 @@ func filter_tags_by_tag_angle(camera_attribute: Node3D, tags: Array[Node3D]) -> 
 		
 	
 	return tags_within_angle
+
+func move_robot():
+	var new_rot: float = camera_directory.global_rotation.y + deg_to_rad(rotation_increment_degrees)
+	if new_rot < PI: 
+		camera_directory.global_rotation_degrees.y += rotation_increment_degrees
+		print(camera_directory.global_rotation_degrees.y)
+		return
+			
+	camera_directory.global_rotation.y = -PI + 0.0001 # reset rotation after it completes a full rotation
+	print(camera_directory.global_rotation.y)
+	print("reset")
+
+	camera_directory.global_position.x += position_translation_increment.x
+	if camera_directory.global_position.x < field_dimentions_meters.x: return
+	camera_directory.global_position.x = 0.0
+
+	camera_directory.global_position.z += position_translation_increment.y
+	if camera_directory.global_position.z < field_dimentions_meters.y: return
+	camera_directory.global_position.z = 0.0
+	print("completed full cycle")
