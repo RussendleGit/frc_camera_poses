@@ -9,7 +9,7 @@ extends Node3D
 @export var num_poses_grid: Vector2 = Vector2(40.0, 40.0)
 @export var rotation_increment_degrees: float = 5
 @export var camera_translation_increment: float = 0.1
-@export var field_dimentions_meters: Vector2 = Vector2(16.540988, 8.069326)
+@export var field_dimensions_meters: Vector2 = Vector2(16.540988, 8.069326)
 
 @onready var camera_attributes: Array[Node3D] = []
 @onready var tag_points = ["MarkerUR", "MarkerUL", "MarkerDR", "MarkerDL"]
@@ -26,7 +26,8 @@ var data: Array = []
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	position_translation_increment = Vector2(field_dimentions_meters.x / num_poses_grid.x, field_dimentions_meters.y / num_poses_grid.y)
+	position_translation_increment = Vector2(field_dimensions_meters.x / num_poses_grid.x, field_dimensions_meters.y / num_poses_grid.y)
+
 	set_april_tags()
 	add_camera(Vector3(0.0, -0.2, 0.4), Vector3(0.0, 15.0, 30.0)) 
 	add_camera(Vector3(0.0, 0.2, 0.4), Vector3(0.0, 15.0, -30.0)) 
@@ -211,11 +212,11 @@ func move_robot():
 	camera_directory.global_rotation.y = -PI + 0.0001 # reset rotation after it completes a full rotation
 	
 	camera_directory.global_position.x += position_translation_increment.x
-	if camera_directory.global_position.x < field_dimentions_meters.x: return
+	if camera_directory.global_position.x < field_dimensions_meters.x: return
 	camera_directory.global_position.x = 0.0
 
 	camera_directory.global_position.z += position_translation_increment.y
-	if camera_directory.global_position.z < field_dimentions_meters.y: return
+	if camera_directory.global_position.z < field_dimensions_meters.y: return
 	camera_directory.global_position.z = 0.0
 	num_camera_changes += 1
 	print("completed full cycle")

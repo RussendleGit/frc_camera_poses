@@ -1,16 +1,6 @@
 [gd_scene load_steps=4 format=3 uid="uid://dh3npgcvbwq4y"]
 
-[sub_resource type="GDScript" id="GDScript_faknn"]
-script/source = "extends Node3D
-
-@onready var label_3d: Label3D = $Label3D
-
-@export var skew_yaw: float = 0.0
-@export var skew_pitch: float = 0.0
-# Called when the node enters the scene tree for the first time.
-func _ready() -> void:
-	label_3d.text = name
-"
+[ext_resource type="Script" path="res://scripts/april_tag.gd" id="1_yimfx"]
 
 [sub_resource type="QuadMesh" id="QuadMesh_bifcq"]
 size = Vector2(0.165, 0.165)
@@ -19,7 +9,7 @@ size = Vector2(0.165, 0.165)
 albedo_color = Color(1, 0, 1, 1)
 
 [node name="AprilTag" type="Node3D"]
-script = SubResource("GDScript_faknn")
+script = ExtResource("1_yimfx")
 
 [node name="AprilTagMesh" type="MeshInstance3D" parent="."]
 transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0, 0)
