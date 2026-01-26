@@ -123,140 +123,140 @@ collide_with_bodies = false
 debug_shape_custom_color = Color(0.248995, 0.335777, 1.92523e-07, 1)
 debug_shape_thickness = 1
 
-[node name="Robot" type="StaticBody3D" parent="CameraDirectory"]
-
-[node name="CollisionShape3D32" type="CollisionShape3D" parent="CameraDirectory/Robot"]
-transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0.318, 0, 0.381)
-shape = SubResource("ConvexPolygonShape3D_vf2cj")
-
-[node name="CollisionShape3D31" type="CollisionShape3D" parent="CameraDirectory/Robot"]
-transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0.318, 0, 0.381)
-shape = SubResource("ConvexPolygonShape3D_ysn76")
-
-[node name="CollisionShape3D30" type="CollisionShape3D" parent="CameraDirectory/Robot"]
-transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0.318, 0, 0.381)
-shape = SubResource("ConvexPolygonShape3D_4noom")
-
-[node name="CollisionShape3D29" type="CollisionShape3D" parent="CameraDirectory/Robot"]
-transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0.318, 0, 0.381)
-shape = SubResource("ConvexPolygonShape3D_hyxn4")
-
-[node name="CollisionShape3D28" type="CollisionShape3D" parent="CameraDirectory/Robot"]
-transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0.318, 0, 0.381)
-shape = SubResource("ConvexPolygonShape3D_ajwlo")
-
-[node name="CollisionShape3D27" type="CollisionShape3D" parent="CameraDirectory/Robot"]
-transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0.318, 0, 0.381)
-shape = SubResource("ConvexPolygonShape3D_ekj1l")
-
-[node name="CollisionShape3D26" type="CollisionShape3D" parent="CameraDirectory/Robot"]
-transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0.318, 0, 0.381)
-shape = SubResource("ConvexPolygonShape3D_xktwj")
-
-[node name="CollisionShape3D25" type="CollisionShape3D" parent="CameraDirectory/Robot"]
-transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0.318, 0, 0.381)
-shape = SubResource("ConvexPolygonShape3D_tx68t")
-
-[node name="CollisionShape3D24" type="CollisionShape3D" parent="CameraDirectory/Robot"]
-transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0.318, 0, 0.381)
-shape = SubResource("ConvexPolygonShape3D_f34xp")
-
-[node name="CollisionShape3D23" type="CollisionShape3D" parent="CameraDirectory/Robot"]
-transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0.318, 0, 0.381)
-shape = SubResource("ConvexPolygonShape3D_eox47")
-
-[node name="CollisionShape3D22" type="CollisionShape3D" parent="CameraDirectory/Robot"]
-transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0.318, 0, 0.381)
-shape = SubResource("ConvexPolygonShape3D_6c5cd")
-
-[node name="CollisionShape3D21" type="CollisionShape3D" parent="CameraDirectory/Robot"]
-transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0.318, 0, 0.381)
-shape = SubResource("ConvexPolygonShape3D_labcl")
-
-[node name="CollisionShape3D20" type="CollisionShape3D" parent="CameraDirectory/Robot"]
-transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0.318, 0, 0.381)
-shape = SubResource("ConvexPolygonShape3D_bmupg")
-
-[node name="CollisionShape3D19" type="CollisionShape3D" parent="CameraDirectory/Robot"]
-transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0.318, 0, 0.381)
-shape = SubResource("ConvexPolygonShape3D_ujam0")
-
-[node name="CollisionShape3D18" type="CollisionShape3D" parent="CameraDirectory/Robot"]
-transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0.318, 0, 0.381)
-shape = SubResource("ConvexPolygonShape3D_tdyr6")
-
-[node name="CollisionShape3D17" type="CollisionShape3D" parent="CameraDirectory/Robot"]
-transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0.318, 0, 0.381)
-shape = SubResource("ConvexPolygonShape3D_1aopm")
-
-[node name="CollisionShape3D16" type="CollisionShape3D" parent="CameraDirectory/Robot"]
-transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0.318, 0, 0.381)
-shape = SubResource("ConvexPolygonShape3D_dnenb")
-
-[node name="CollisionShape3D15" type="CollisionShape3D" parent="CameraDirectory/Robot"]
-transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0.318, 0, 0.381)
-shape = SubResource("ConvexPolygonShape3D_j5x86")
-
-[node name="CollisionShape3D14" type="CollisionShape3D" parent="CameraDirectory/Robot"]
-transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0.318, 0, 0.381)
-shape = SubResource("ConvexPolygonShape3D_4ne0v")
-
-[node name="CollisionShape3D13" type="CollisionShape3D" parent="CameraDirectory/Robot"]
-transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0.318, 0, 0.381)
-shape = SubResource("ConvexPolygonShape3D_hskrp")
-
-[node name="CollisionShape3D12" type="CollisionShape3D" parent="CameraDirectory/Robot"]
-transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0.318, 0, 0.381)
-shape = SubResource("ConvexPolygonShape3D_5yhpa")
-
-[node name="CollisionShape3D11" type="CollisionShape3D" parent="CameraDirectory/Robot"]
-transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0.318, 0, 0.381)
-shape = SubResource("ConvexPolygonShape3D_l170r")
-
-[node name="CollisionShape3D10" type="CollisionShape3D" parent="CameraDirectory/Robot"]
-transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0.318, 0, 0.381)
-shape = SubResource("ConvexPolygonShape3D_lfxd2")
-
-[node name="CollisionShape3D9" type="CollisionShape3D" parent="CameraDirectory/Robot"]
-transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0.318, 0, 0.381)
-shape = SubResource("ConvexPolygonShape3D_l3md7")
-
-[node name="CollisionShape3D8" type="CollisionShape3D" parent="CameraDirectory/Robot"]
-transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0.318, 0, 0.381)
-shape = SubResource("ConvexPolygonShape3D_grrib")
-
-[node name="CollisionShape3D7" type="CollisionShape3D" parent="CameraDirectory/Robot"]
-transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0.318, 0, 0.381)
-shape = SubResource("ConvexPolygonShape3D_6yooq")
-
-[node name="CollisionShape3D6" type="CollisionShape3D" parent="CameraDirectory/Robot"]
-transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0.318, 0, 0.381)
-shape = SubResource("ConvexPolygonShape3D_4c17g")
-
-[node name="CollisionShape3D5" type="CollisionShape3D" parent="CameraDirectory/Robot"]
-transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0.318, 0, 0.381)
-shape = SubResource("ConvexPolygonShape3D_0xgnk")
-
-[node name="CollisionShape3D4" type="CollisionShape3D" parent="CameraDirectory/Robot"]
-transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0.318, 0, 0.381)
-shape = SubResource("ConvexPolygonShape3D_xd65d")
-
-[node name="CollisionShape3D3" type="CollisionShape3D" parent="CameraDirectory/Robot"]
-transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0.318, 0, 0.381)
-shape = SubResource("ConvexPolygonShape3D_c3g1n")
-
-[node name="CollisionShape3D2" type="CollisionShape3D" parent="CameraDirectory/Robot"]
-transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0.318, 0, 0.381)
-shape = SubResource("ConvexPolygonShape3D_008or")
-
-[node name="CollisionShape3D33" type="CollisionShape3D" parent="CameraDirectory/Robot"]
-transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0.318, 0, 0.381)
-shape = SubResource("ConvexPolygonShape3D_lhgmr")
-
 [node name="MeshInstance3D" type="MeshInstance3D" parent="CameraDirectory"]
 transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0.318, 0, 0.381)
 mesh = ExtResource("2_1h3pe")
 skeleton = NodePath("")
+
+[node name="RobotCollision" type="Area3D" parent="CameraDirectory"]
+
+[node name="CollisionShape3D32" type="CollisionShape3D" parent="CameraDirectory/RobotCollision"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0.318, 0, 0.381)
+shape = SubResource("ConvexPolygonShape3D_vf2cj")
+
+[node name="CollisionShape3D31" type="CollisionShape3D" parent="CameraDirectory/RobotCollision"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0.318, 0, 0.381)
+shape = SubResource("ConvexPolygonShape3D_ysn76")
+
+[node name="CollisionShape3D30" type="CollisionShape3D" parent="CameraDirectory/RobotCollision"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0.318, 0, 0.381)
+shape = SubResource("ConvexPolygonShape3D_4noom")
+
+[node name="CollisionShape3D29" type="CollisionShape3D" parent="CameraDirectory/RobotCollision"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0.318, 0, 0.381)
+shape = SubResource("ConvexPolygonShape3D_hyxn4")
+
+[node name="CollisionShape3D28" type="CollisionShape3D" parent="CameraDirectory/RobotCollision"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0.318, 0, 0.381)
+shape = SubResource("ConvexPolygonShape3D_ajwlo")
+
+[node name="CollisionShape3D27" type="CollisionShape3D" parent="CameraDirectory/RobotCollision"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0.318, 0, 0.381)
+shape = SubResource("ConvexPolygonShape3D_ekj1l")
+
+[node name="CollisionShape3D26" type="CollisionShape3D" parent="CameraDirectory/RobotCollision"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0.318, 0, 0.381)
+shape = SubResource("ConvexPolygonShape3D_xktwj")
+
+[node name="CollisionShape3D25" type="CollisionShape3D" parent="CameraDirectory/RobotCollision"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0.318, 0, 0.381)
+shape = SubResource("ConvexPolygonShape3D_tx68t")
+
+[node name="CollisionShape3D24" type="CollisionShape3D" parent="CameraDirectory/RobotCollision"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0.318, 0, 0.381)
+shape = SubResource("ConvexPolygonShape3D_f34xp")
+
+[node name="CollisionShape3D23" type="CollisionShape3D" parent="CameraDirectory/RobotCollision"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0.318, 0, 0.381)
+shape = SubResource("ConvexPolygonShape3D_eox47")
+
+[node name="CollisionShape3D22" type="CollisionShape3D" parent="CameraDirectory/RobotCollision"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0.318, 0, 0.381)
+shape = SubResource("ConvexPolygonShape3D_6c5cd")
+
+[node name="CollisionShape3D21" type="CollisionShape3D" parent="CameraDirectory/RobotCollision"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0.318, 0, 0.381)
+shape = SubResource("ConvexPolygonShape3D_labcl")
+
+[node name="CollisionShape3D20" type="CollisionShape3D" parent="CameraDirectory/RobotCollision"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0.318, 0, 0.381)
+shape = SubResource("ConvexPolygonShape3D_bmupg")
+
+[node name="CollisionShape3D19" type="CollisionShape3D" parent="CameraDirectory/RobotCollision"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0.318, 0, 0.381)
+shape = SubResource("ConvexPolygonShape3D_ujam0")
+
+[node name="CollisionShape3D18" type="CollisionShape3D" parent="CameraDirectory/RobotCollision"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0.318, 0, 0.381)
+shape = SubResource("ConvexPolygonShape3D_tdyr6")
+
+[node name="CollisionShape3D17" type="CollisionShape3D" parent="CameraDirectory/RobotCollision"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0.318, 0, 0.381)
+shape = SubResource("ConvexPolygonShape3D_1aopm")
+
+[node name="CollisionShape3D16" type="CollisionShape3D" parent="CameraDirectory/RobotCollision"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0.318, 0, 0.381)
+shape = SubResource("ConvexPolygonShape3D_dnenb")
+
+[node name="CollisionShape3D15" type="CollisionShape3D" parent="CameraDirectory/RobotCollision"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0.318, 0, 0.381)
+shape = SubResource("ConvexPolygonShape3D_j5x86")
+
+[node name="CollisionShape3D14" type="CollisionShape3D" parent="CameraDirectory/RobotCollision"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0.318, 0, 0.381)
+shape = SubResource("ConvexPolygonShape3D_4ne0v")
+
+[node name="CollisionShape3D13" type="CollisionShape3D" parent="CameraDirectory/RobotCollision"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0.318, 0, 0.381)
+shape = SubResource("ConvexPolygonShape3D_hskrp")
+
+[node name="CollisionShape3D12" type="CollisionShape3D" parent="CameraDirectory/RobotCollision"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0.318, 0, 0.381)
+shape = SubResource("ConvexPolygonShape3D_5yhpa")
+
+[node name="CollisionShape3D11" type="CollisionShape3D" parent="CameraDirectory/RobotCollision"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0.318, 0, 0.381)
+shape = SubResource("ConvexPolygonShape3D_l170r")
+
+[node name="CollisionShape3D10" type="CollisionShape3D" parent="CameraDirectory/RobotCollision"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0.318, 0, 0.381)
+shape = SubResource("ConvexPolygonShape3D_lfxd2")
+
+[node name="CollisionShape3D9" type="CollisionShape3D" parent="CameraDirectory/RobotCollision"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0.318, 0, 0.381)
+shape = SubResource("ConvexPolygonShape3D_l3md7")
+
+[node name="CollisionShape3D8" type="CollisionShape3D" parent="CameraDirectory/RobotCollision"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0.318, 0, 0.381)
+shape = SubResource("ConvexPolygonShape3D_grrib")
+
+[node name="CollisionShape3D7" type="CollisionShape3D" parent="CameraDirectory/RobotCollision"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0.318, 0, 0.381)
+shape = SubResource("ConvexPolygonShape3D_6yooq")
+
+[node name="CollisionShape3D6" type="CollisionShape3D" parent="CameraDirectory/RobotCollision"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0.318, 0, 0.381)
+shape = SubResource("ConvexPolygonShape3D_4c17g")
+
+[node name="CollisionShape3D5" type="CollisionShape3D" parent="CameraDirectory/RobotCollision"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0.318, 0, 0.381)
+shape = SubResource("ConvexPolygonShape3D_0xgnk")
+
+[node name="CollisionShape3D4" type="CollisionShape3D" parent="CameraDirectory/RobotCollision"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0.318, 0, 0.381)
+shape = SubResource("ConvexPolygonShape3D_xd65d")
+
+[node name="CollisionShape3D3" type="CollisionShape3D" parent="CameraDirectory/RobotCollision"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0.318, 0, 0.381)
+shape = SubResource("ConvexPolygonShape3D_c3g1n")
+
+[node name="CollisionShape3D2" type="CollisionShape3D" parent="CameraDirectory/RobotCollision"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0.318, 0, 0.381)
+shape = SubResource("ConvexPolygonShape3D_008or")
+
+[node name="CollisionShape3D33" type="CollisionShape3D" parent="CameraDirectory/RobotCollision"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0.318, 0, 0.381)
+shape = SubResource("ConvexPolygonShape3D_lhgmr")
 
 [node name="AllowedAreas" type="Node3D" parent="."]
 

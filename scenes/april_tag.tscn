@@ -31,6 +31,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.083, 0.083, 0)
 
 [node name="RayCast3D" type="RayCast3D" parent="MarkerUR"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.02)
+collide_with_areas = true
 debug_shape_custom_color = Color(0.654902, 0, 1, 1)
 debug_shape_thickness = 1
 
@@ -39,6 +40,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.083, 0.083, 0)
 
 [node name="RayCast3D" type="RayCast3D" parent="MarkerUL"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.02)
+collide_with_areas = true
 debug_shape_custom_color = Color(0.654902, 0, 1, 1)
 debug_shape_thickness = 1
 
@@ -47,6 +49,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.083, -0.083, 0)
 
 [node name="RayCast3D" type="RayCast3D" parent="MarkerDR"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.02)
+collide_with_areas = true
 debug_shape_custom_color = Color(0.654902, 0, 1, 1)
 debug_shape_thickness = 1
 
@@ -55,6 +58,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.083, -0.083, 0)
 
 [node name="RayCast3D" type="RayCast3D" parent="MarkerDL"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.02)
+collide_with_areas = true
 debug_shape_custom_color = Color(0.654902, 0, 1, 1)
 debug_shape_thickness = 1
 

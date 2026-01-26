@@ -7,8 +7,8 @@ extends Node3D
 @export var max_tag_angle_to_cam: float = 80
 @export var slow_physics: bool = true
 
-@export var num_poses_grid: Vector2 = Vector2(40, 40)
-@export var rotation_increment_degrees: float = 1
+@export var num_poses_grid: Vector2 = Vector2(10.0, 5.0)
+@export var rotation_increment_degrees: float = 4
 @export var camera_translation_increment: float = 0.1
 @export var field_dimentions_meters: Vector2 = Vector2(16.540988, 8.069326)
 
@@ -17,6 +17,7 @@ extends Node3D
 @onready var tag_directory: Node3D = $TagDirectory
 @onready var camera_directory: Node3D = $CameraDirectory
 @onready var allowed_areas: Node3D = $AllowedAreas
+@onready var robot_collision: Area3D = $CameraDirectory/RobotCollision
 
 var camera_attributes_index_focus: int = 0
 var position_translation_increment: Vector2
@@ -77,13 +78,19 @@ func set_april_tags(json_path: String = "2026-rebuilt-welded.json") -> void:
 		
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _physics_process(delta: float) -> void:
-
+	if robot_collision.has_overlapping_bodies():
+		print("rejected")
+		camera_attributes_index_focus = 0
+		move_robot()
+		update_raycasts_for_next_iteration(camera_attributes[camera_attributes_index_focus])
+		return
+		
 	var current_camera_attribute = camera_attributes[camera_attributes_index_focus]
 	var unblocked_tags = filter_tags_by_raycast()
 	var tags_within_view_angle = filter_tags_by_cam_view_angle(current_camera_attribute, unblocked_tags)
 	var tags_within_distance = filter_tags_by_distance(current_camera_attribute, tags_within_view_angle)	
 	var tags_within_tag_angle = filter_tags_by_tag_angle(current_camera_attribute, tags_within_distance)
-	
+
 	camera_attributes_index_focus += 1
 	if (camera_attributes_index_focus >= len(camera_attributes)):
 		camera_attributes_index_focus = 0
@@ -96,7 +103,7 @@ func _physics_process(delta: float) -> void:
 ## this will just update the positions for the next camera, and let godot handle it
 func update_raycasts_for_next_iteration(next_camera_attribute: Node3D) -> void:
 	for tag in tag_directory.get_children():
-		tag.visible = true
+		#tag.visible = true
 		for marker_name in tag_points:
 			var marker = tag.get_node(marker_name)
 			var ray_cast = marker.get_node("RayCast3D")
@@ -124,6 +131,9 @@ func filter_tags_by_raycast() -> Array[Node3D]:
 			
 		if see_all_four_corners:
 			unblocked_april_tags.append(tag)
+			tag.visible = true
+		else:
+			tag.visible = true
 	
 	return unblocked_april_tags
 
@@ -141,13 +151,19 @@ func filter_tags_by_cam_view_angle(camera_attribute: Node3D, tags: Array[Node3D]
 		# get the angle between the tags
 		var angle_yaw = direction_2d_yaw.angle()
 		var angle_pitch = direction_2d_pitch.angle()
-		
+
 		# account rotation of marker
 		var angle_diff_yaw = wrapf(angle_yaw + camera_attribute.global_rotation.y, -PI, PI)
-		var angle_diff_pitch = wrapf(angle_pitch + camera_attribute.global_rotation.z, -PI, PI)
-		
-		if abs(angle_diff_yaw) <= deg_to_rad(camera_fov_degrees / 2.0) && abs(angle_diff_pitch) <= deg_to_rad(camera_fov_degrees / 2.0):
+		var angle_diff_pitch_left = wrapf(angle_pitch + camera_attribute.global_rotation.z, -PI, PI)
+		var angle_diff_pitch_right = wrapf(angle_pitch + camera_attribute.global_rotation.z - PI, -PI, PI)
+
+		if abs(angle_diff_yaw) <= deg_to_rad(camera_fov_degrees / 2.0) && \
+			(abs(angle_diff_pitch_left) <= deg_to_rad(camera_fov_degrees / 2.0) || \
+			abs(angle_diff_pitch_right) <= deg_to_rad(camera_fov_degrees / 2.0)):
+			tag.visible = true
 			tags_in_h_view.append(tag)
+		else:
+			tag.visible = true
 	
 	camera_3d.fov = camera_fov_degrees # for debug, to show what camera could be seeing in view port
 	return tags_in_h_view
@@ -157,9 +173,10 @@ func filter_tags_by_distance(camera_attribute: Node3D, tags: Array[Node3D]) -> A
 	
 	for tag in tags:
 		if camera_attribute.global_position.distance_to(tag.global_position) < max_distance:
+			tag.visible = true
 			tags_within_range.append(tag)
 		else:
-			tag.visible = false # for debug, to show what the camera isn't seeing
+			tag.visible = true 
 	return tags_within_range		
 
 func filter_tags_by_tag_angle(camera_attribute: Node3D, tags: Array[Node3D]) -> Array[Node3D]:
@@ -173,24 +190,21 @@ func filter_tags_by_tag_angle(camera_attribute: Node3D, tags: Array[Node3D]) -> 
 		tag.skew_pitch = pitch
 
 		if abs(yaw) <= deg_to_rad(max_tag_angle_to_cam) && abs(pitch) <= deg_to_rad(max_tag_angle_to_cam):
+			tag.visible = true
 			tags_within_angle.append(tag)
 		else:
-			tag.visible = false # for debug, to show what the camera isn't seeing
+			tag.visible = true 
 		
 	
 	return tags_within_angle
 
 func move_robot():
-	var new_rot: float = camera_directory.global_rotation.y + deg_to_rad(rotation_increment_degrees)
-	if new_rot < PI: 
+	var new_rot: float = camera_directory.global_rotation_degrees.y + rotation_increment_degrees
+	if new_rot < 180.0 - rotation_increment_degrees: 
 		camera_directory.global_rotation_degrees.y += rotation_increment_degrees
-		print(camera_directory.global_rotation_degrees.y)
 		return
-			
 	camera_directory.global_rotation.y = -PI + 0.0001 # reset rotation after it completes a full rotation
-	print(camera_directory.global_rotation.y)
-	print("reset")
-
+	
 	camera_directory.global_position.x += position_translation_increment.x
 	if camera_directory.global_position.x < field_dimentions_meters.x: return
 	camera_directory.global_position.x = 0.0
@@ -199,3 +213,4 @@ func move_robot():
 	if camera_directory.global_position.z < field_dimentions_meters.y: return
 	camera_directory.global_position.z = 0.0
 	print("completed full cycle")
+	
