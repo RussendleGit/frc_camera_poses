@@ -23,7 +23,7 @@ var camera_attributes_index_focus: int = 0
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	set_april_tags()
-	add_camera(Vector3(), Vector3()) 
+	add_camera(Vector3(0.0, 0.0, 0.4), Vector3()) 
 	for i in range(len(camera_attributes)):
 		camera_attributes[i].name = str(i)
 		camera_directory.add_child(camera_attributes[i])
@@ -81,7 +81,7 @@ func _physics_process(delta: float) -> void:
 	var tags_within_view_angle = filter_tags_by_cam_view_angle(current_camera_attribute, unblocked_tags)
 	var tags_within_distance = filter_tags_by_distance(current_camera_attribute, tags_within_view_angle)	
 	var tags_within_tag_angle = filter_tags_by_tag_angle(current_camera_attribute, tags_within_distance)
-
+	
 	camera_attributes_index_focus += 1
 	if (camera_attributes_index_focus >= len(camera_attributes)):
 		camera_attributes_index_focus = 0
@@ -166,6 +166,8 @@ func filter_tags_by_tag_angle(camera_attribute: Node3D, tags: Array[Node3D]) -> 
 		# take away 90 from yaw, because that's the default rotation for april tags
 		var yaw = wrapf((tag.global_rotation.y - deg_to_rad(90.0)) - camera_attribute.global_rotation.y, -PI, PI)
 		var pitch = wrapf(tag.global_rotation.z - camera_attribute.global_rotation.z, -PI, PI)
+		tag.skew_yaw = yaw
+		tag.skew_pitch = pitch
 
 		if abs(yaw) <= deg_to_rad(max_tag_angle_to_cam) && abs(pitch) <= deg_to_rad(max_tag_angle_to_cam):
 			tags_within_angle.append(tag)
