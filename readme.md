@@ -9,13 +9,13 @@
   - [x] Add the Tag to a specific Physics Layer (e.g., Layer 2) to keep raycasts clean.
 - [x] Place Tags: Instance the tags throughout the field at their real-world XYZ positions and rotations.
   - [x] Import from existing file?
-- [ ] Robot Proxy: Create a Node3D to represent the robot (the "origin" for your tests).
+- [x] Robot Proxy: Create a Node3D to represent the robot (the "origin" for your tests).
 
 ## Phase 2: Logic & Math (The "Visibility Script")
 
 - [x] Field of View (FOV) Filter: Implement a Dot Product check to ensure tags are within the camera’s horizontal and vertical cone.
 - [x] Distance Filter: Define a MAX_DISTANCE constant (e.g., 5 meters) to simulate camera resolution limits.
-- [ ] Tag Skew filter: define a max skew, and filter by that
+- [x] Tag Skew filter: define a max skew, and filter by that
 - [x] Multi-Point Raycasting: 
   - [x] Access PhysicsDirectSpaceState3D.
   - [x] Loop through the 4 Marker3D nodes on a tag.
@@ -25,13 +25,13 @@
 
 - [x] Define Grid Parameters: Set your X and Y bounds and the step size (e.g., every 0.5 meters).
 - [x] Define Rotation Steps: Set your angular increment (e.g., 45∘).
-- [ ] The Nested Loop:
-  - [ ] Loop through X positions.
-  - [ ] Loop through Y positions.
-  - [ ] Loop through Rotations.
-- [ ] Data Capture:
-  - [ ] Move the Robot Proxy to the current XYZ.
-  - [ ] Run the visibility check.
+- [x] The Nested Loop:
+  - [x] Loop through X positions.
+  - [x] Loop through Y positions.
+  - [x] Loop through Rotations.
+- [x] Data Capture:
+  - [x] Move the Robot Proxy to the current XYZ.
+  - [x] Run the visibility check.
   - [ ] Store the results in a Dictionary or Array
 
 ## Phase 4: Output & Export

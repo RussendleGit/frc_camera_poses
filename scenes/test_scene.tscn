@@ -14,6 +14,9 @@ metadata/_edit_lock_ = true
 [node name="CameraDirectory" parent="Camera2" index="1"]
 transform = Transform3D(0.99661, -0.00222056, 0.082239, 0.00221625, 0.999998, 0.000143683, -0.0822391, 3.90665e-05, 0.996613, 0, 0, 0)
 
+[node name="CollisionShape3D32" parent="Camera2/CameraDirectory/RobotCollision" index="0"]
+transform = Transform3D(0.972931, 0.170114, -0.15642, 0.160314, -0.00931405, 0.987022, 0.166449, -0.98538, -0.0363336, 0.318, 5.36602e-11, 0.381)
+
 [node name="MeshInstance3D" parent="Camera2/AllowedAreas" index="0"]
 transform = Transform3D(0.73655, 0, 0, 0, 0.297019, 0, 0, 0, 0.839801, 0, 0.272, -0.005)
 

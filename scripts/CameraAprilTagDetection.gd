@@ -5,10 +5,9 @@ extends Node3D
 @export var camera_fov_degrees: float = 100.0
 @export var max_distance: float = 200.0 / 39.37
 @export var max_tag_angle_to_cam: float = 80
-@export var slow_physics: bool = true
 
-@export var num_poses_grid: Vector2 = Vector2(10.0, 5.0)
-@export var rotation_increment_degrees: float = 4
+@export var num_poses_grid: Vector2 = Vector2(40.0, 40.0)
+@export var rotation_increment_degrees: float = 5
 @export var camera_translation_increment: float = 0.1
 @export var field_dimentions_meters: Vector2 = Vector2(16.540988, 8.069326)
 
@@ -21,13 +20,16 @@ extends Node3D
 
 var camera_attributes_index_focus: int = 0
 var position_translation_increment: Vector2
-
+var num_camera_changes: int = 0
+var num_robot_pose_changes: int = 0
+var data: Array = []
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	position_translation_increment = Vector2(field_dimentions_meters.x / num_poses_grid.x, field_dimentions_meters.y / num_poses_grid.y)
 	set_april_tags()
-	add_camera(Vector3(0.0, 0.0, 0.4), Vector3()) 
+	add_camera(Vector3(0.0, -0.2, 0.4), Vector3(0.0, 15.0, 30.0)) 
+	add_camera(Vector3(0.0, 0.2, 0.4), Vector3(0.0, 15.0, -30.0)) 
 	for i in range(len(camera_attributes)):
 		camera_attributes[i].name = str(i)
 		camera_directory.add_child(camera_attributes[i])
@@ -133,7 +135,7 @@ func filter_tags_by_raycast() -> Array[Node3D]:
 			unblocked_april_tags.append(tag)
 			tag.visible = true
 		else:
-			tag.visible = true
+			tag.visible = false
 	
 	return unblocked_april_tags
 
@@ -163,7 +165,7 @@ func filter_tags_by_cam_view_angle(camera_attribute: Node3D, tags: Array[Node3D]
 			tag.visible = true
 			tags_in_h_view.append(tag)
 		else:
-			tag.visible = true
+			tag.visible = false
 	
 	camera_3d.fov = camera_fov_degrees # for debug, to show what camera could be seeing in view port
 	return tags_in_h_view
@@ -176,7 +178,8 @@ func filter_tags_by_distance(camera_attribute: Node3D, tags: Array[Node3D]) -> A
 			tag.visible = true
 			tags_within_range.append(tag)
 		else:
-			tag.visible = true 
+			tag.visible = false
+			 
 	return tags_within_range		
 
 func filter_tags_by_tag_angle(camera_attribute: Node3D, tags: Array[Node3D]) -> Array[Node3D]:
@@ -193,16 +196,17 @@ func filter_tags_by_tag_angle(camera_attribute: Node3D, tags: Array[Node3D]) -> 
 			tag.visible = true
 			tags_within_angle.append(tag)
 		else:
-			tag.visible = true 
+			tag.visible = false 
 		
 	
 	return tags_within_angle
+
 
 func move_robot():
 	var new_rot: float = camera_directory.global_rotation_degrees.y + rotation_increment_degrees
 	if new_rot < 180.0 - rotation_increment_degrees: 
 		camera_directory.global_rotation_degrees.y += rotation_increment_degrees
-		return
+		
 	camera_directory.global_rotation.y = -PI + 0.0001 # reset rotation after it completes a full rotation
 	
 	camera_directory.global_position.x += position_translation_increment.x
@@ -212,5 +216,6 @@ func move_robot():
 	camera_directory.global_position.z += position_translation_increment.y
 	if camera_directory.global_position.z < field_dimentions_meters.y: return
 	camera_directory.global_position.z = 0.0
+	num_camera_changes += 1
 	print("completed full cycle")
 	
