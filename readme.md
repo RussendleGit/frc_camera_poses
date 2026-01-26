@@ -23,8 +23,8 @@
 
 ## Phase 3: The Data Runner (Grid Search)
 
-- [ ] Define Grid Parameters: Set your X and Y bounds and the step size (e.g., every 0.5 meters).
-- [ ] Define Rotation Steps: Set your angular increment (e.g., 45∘).
+- [x] Define Grid Parameters: Set your X and Y bounds and the step size (e.g., every 0.5 meters).
+- [x] Define Rotation Steps: Set your angular increment (e.g., 45∘).
 - [ ] The Nested Loop:
   - [ ] Loop through X positions.
   - [ ] Loop through Y positions.
