@@ -1,7 +1,6 @@
-[gd_scene load_steps=4 format=3 uid="uid://bj57efvkcnlw7"]
+[gd_scene load_steps=3 format=3 uid="uid://bj57efvkcnlw7"]
 
 [ext_resource type="PackedScene" uid="uid://xicth2u18nl" path="res://scenes/feild_collision.tscn" id="1_tujmb"]
-[ext_resource type="Script" path="res://scripts/CameraControl.gd" id="3_wiyru"]
 [ext_resource type="PackedScene" uid="uid://boxl62vo7i7ik" path="res://scenes/robot.tscn" id="4_ol6rw"]
 
 [node name="Node3D" type="Node3D"]
@@ -10,10 +9,8 @@
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8.27, 0, 4.034)
 metadata/_edit_lock_ = true
 
-[node name="Camera3D" type="Camera3D" parent="."]
-transform = Transform3D(0.68035, 0.367284, -0.634213, 0.129538, 0.791474, 0.597318, 0.721348, -0.48854, 0.490902, 2.79487, 3.27332, 10.1516)
-script = ExtResource("3_wiyru")
-
 [node name="Camera2" parent="." instance=ExtResource("4_ol6rw")]
+
+[node name="Camera3D" type="Camera3D" parent="."]
 
 [editable path="Camera2"]
