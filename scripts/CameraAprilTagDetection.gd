@@ -76,15 +76,16 @@ func set_april_tags(json_path: String = "2026-rebuilt-welded.json") -> void:
 func _physics_process(delta: float) -> void:
 	print(camera_attributes[camera_attributes_index_focus].name)
 
+	var current_camera_attribute = camera_attributes[camera_attributes_index_focus]
 	var unblocked_tags = filter_tags_by_raycast()
-	var tags_within_view_angle = filter_tags_by_cam_view_angle(camera_attributes[camera_attributes_index_focus], unblocked_tags)
-	var tags_within_distance = filter_tags_by_distance(camera_attributes[camera_attributes_index_focus], tags_within_view_angle)	
-	var tags_within_tag_angle = filter_tags_by_tag_angle(camera_attributes[camera_attributes_index_focus], tags_within_distance)
+	var tags_within_view_angle = filter_tags_by_cam_view_angle(current_camera_attribute, unblocked_tags)
+	var tags_within_distance = filter_tags_by_distance(current_camera_attribute, tags_within_view_angle)	
+	var tags_within_tag_angle = filter_tags_by_tag_angle(current_camera_attribute, tags_within_distance)
 
 	camera_attributes_index_focus += 1
 	if (camera_attributes_index_focus >= len(camera_attributes)):
 		camera_attributes_index_focus = 0
-		
+
 	update_raycasts_for_next_iteration(camera_attributes[camera_attributes_index_focus])
 	
 
@@ -173,4 +174,3 @@ func filter_tags_by_tag_angle(camera_attribute: Node3D, tags: Array[Node3D]) -> 
 		
 	
 	return tags_within_angle
-
