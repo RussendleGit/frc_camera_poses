@@ -31,6 +31,10 @@ window/size/initial_position_type=0
 
 project/assembly_name="FRC_Camera_poses"
 
+[editor_plugins]
+
+enabled=PackedStringArray("res://addons/godot-sqlite/plugin.cfg")
+
 [input]
 
 debug_hop={
