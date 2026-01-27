@@ -1,9 +1,10 @@
-[gd_scene load_steps=39 format=3 uid="uid://boxl62vo7i7ik"]
+[gd_scene format=3 uid="uid://boxl62vo7i7ik"]
 
-[ext_resource type="Script" path="res://scripts/CameraAprilTagDetection.gd" id="1_mfk7f"]
+[ext_resource type="Script" uid="uid://bgjsggyb7ewo4" path="res://scripts/CameraAprilTagDetection.gd" id="1_mfk7f"]
 [ext_resource type="ArrayMesh" uid="uid://fnxgmsa7vflt" path="res://assets/imported/simplified-proto.res" id="2_1h3pe"]
-[ext_resource type="Script" path="res://scripts/april_tags.gd" id="2_xdo14"]
-[ext_resource type="Script" path="res://scripts/cameras.gd" id="3_at58s"]
+[ext_resource type="Script" uid="uid://cby8fusm0cwki" path="res://scripts/april_tags.gd" id="2_xdo14"]
+[ext_resource type="Script" uid="uid://bin3simyg3pm7" path="res://scripts/cameras.gd" id="3_at58s"]
+[ext_resource type="Script" uid="uid://ddsfrcxkvd6ke" path="res://scripts/database.gd" id="5_xwnim"]
 
 [sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_vf2cj"]
 points = PackedVector3Array(-0.300194, 0.736237, 0.250473, -0.491472, 0.692084, 0.162186, -0.491472, 0.736237, 0.162186, -0.544257, 0.706297, 0.2992, -0.285452, 0.706804, 0.176926, -0.44732, 0.692084, 0.29463, -0.535625, 0.736237, 0.29463, -0.285452, 0.736237, 0.176926, -0.285452, 0.706804, 0.235759, -0.417885, 0.736237, 0.29463, -0.44732, 0.692084, 0.162186, -0.491472, 0.692084, 0.29463, -0.300194, 0.706804, 0.250473, -0.535625, 0.736237, 0.265188, -0.417885, 0.706804, 0.29463)
@@ -110,16 +111,16 @@ albedo_color = Color(0, 1, 0, 0.180392)
 [sub_resource type="BoxMesh" id="BoxMesh_nlgae"]
 material = SubResource("StandardMaterial3D_d62q8")
 
-[node name="Robot" type="Node3D"]
+[node name="Robot" type="Node3D" unique_id=1707282263]
 script = ExtResource("1_mfk7f")
 
-[node name="TagDirectory" type="Node3D" parent="."]
+[node name="TagDirectory" type="Node3D" parent="." unique_id=2118146551]
 script = ExtResource("2_xdo14")
 
-[node name="CameraDirectory" type="Node3D" parent="."]
+[node name="CameraDirectory" type="Node3D" parent="." unique_id=1196664721]
 script = ExtResource("3_at58s")
 
-[node name="Forward" type="RayCast3D" parent="CameraDirectory"]
+[node name="Forward" type="RayCast3D" parent="CameraDirectory" unique_id=1589049749]
 transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0, 0)
 target_position = Vector3(-1, 0, 0)
 hit_back_faces = false
@@ -127,144 +128,147 @@ collide_with_bodies = false
 debug_shape_custom_color = Color(0.248995, 0.335777, 1.92523e-07, 1)
 debug_shape_thickness = 1
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="CameraDirectory"]
+[node name="MeshInstance3D" type="MeshInstance3D" parent="CameraDirectory" unique_id=715904552]
 transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0.318, 0, 0.381)
 mesh = ExtResource("2_1h3pe")
 skeleton = NodePath("")
 
-[node name="RobotCollision" type="Area3D" parent="CameraDirectory"]
+[node name="RobotCollision" type="Area3D" parent="CameraDirectory" unique_id=1585652985]
 
-[node name="CollisionShape3D32" type="CollisionShape3D" parent="CameraDirectory/RobotCollision"]
+[node name="CollisionShape3D32" type="CollisionShape3D" parent="CameraDirectory/RobotCollision" unique_id=506938676]
 transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0.318, 0, 0.381)
 shape = SubResource("ConvexPolygonShape3D_vf2cj")
 
-[node name="CollisionShape3D31" type="CollisionShape3D" parent="CameraDirectory/RobotCollision"]
+[node name="CollisionShape3D31" type="CollisionShape3D" parent="CameraDirectory/RobotCollision" unique_id=1377829466]
 transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0.318, 0, 0.381)
 shape = SubResource("ConvexPolygonShape3D_ysn76")
 
-[node name="CollisionShape3D30" type="CollisionShape3D" parent="CameraDirectory/RobotCollision"]
+[node name="CollisionShape3D30" type="CollisionShape3D" parent="CameraDirectory/RobotCollision" unique_id=866884760]
 transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0.318, 0, 0.381)
 shape = SubResource("ConvexPolygonShape3D_4noom")
 
-[node name="CollisionShape3D29" type="CollisionShape3D" parent="CameraDirectory/RobotCollision"]
+[node name="CollisionShape3D29" type="CollisionShape3D" parent="CameraDirectory/RobotCollision" unique_id=1230042869]
 transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0.318, 0, 0.381)
 shape = SubResource("ConvexPolygonShape3D_hyxn4")
 
-[node name="CollisionShape3D28" type="CollisionShape3D" parent="CameraDirectory/RobotCollision"]
+[node name="CollisionShape3D28" type="CollisionShape3D" parent="CameraDirectory/RobotCollision" unique_id=378378329]
 transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0.318, 0, 0.381)
 shape = SubResource("ConvexPolygonShape3D_ajwlo")
 
-[node name="CollisionShape3D27" type="CollisionShape3D" parent="CameraDirectory/RobotCollision"]
+[node name="CollisionShape3D27" type="CollisionShape3D" parent="CameraDirectory/RobotCollision" unique_id=854953836]
 transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0.318, 0, 0.381)
 shape = SubResource("ConvexPolygonShape3D_ekj1l")
 
-[node name="CollisionShape3D26" type="CollisionShape3D" parent="CameraDirectory/RobotCollision"]
+[node name="CollisionShape3D26" type="CollisionShape3D" parent="CameraDirectory/RobotCollision" unique_id=1205462689]
 transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0.318, 0, 0.381)
 shape = SubResource("ConvexPolygonShape3D_xktwj")
 
-[node name="CollisionShape3D25" type="CollisionShape3D" parent="CameraDirectory/RobotCollision"]
+[node name="CollisionShape3D25" type="CollisionShape3D" parent="CameraDirectory/RobotCollision" unique_id=111842363]
 transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0.318, 0, 0.381)
 shape = SubResource("ConvexPolygonShape3D_tx68t")
 
-[node name="CollisionShape3D24" type="CollisionShape3D" parent="CameraDirectory/RobotCollision"]
+[node name="CollisionShape3D24" type="CollisionShape3D" parent="CameraDirectory/RobotCollision" unique_id=456602710]
 transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0.318, 0, 0.381)
 shape = SubResource("ConvexPolygonShape3D_f34xp")
 
-[node name="CollisionShape3D23" type="CollisionShape3D" parent="CameraDirectory/RobotCollision"]
+[node name="CollisionShape3D23" type="CollisionShape3D" parent="CameraDirectory/RobotCollision" unique_id=638272125]
 transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0.318, 0, 0.381)
 shape = SubResource("ConvexPolygonShape3D_eox47")
 
-[node name="CollisionShape3D22" type="CollisionShape3D" parent="CameraDirectory/RobotCollision"]
+[node name="CollisionShape3D22" type="CollisionShape3D" parent="CameraDirectory/RobotCollision" unique_id=1313540802]
 transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0.318, 0, 0.381)
 shape = SubResource("ConvexPolygonShape3D_6c5cd")
 
-[node name="CollisionShape3D21" type="CollisionShape3D" parent="CameraDirectory/RobotCollision"]
+[node name="CollisionShape3D21" type="CollisionShape3D" parent="CameraDirectory/RobotCollision" unique_id=854528111]
 transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0.318, 0, 0.381)
 shape = SubResource("ConvexPolygonShape3D_labcl")
 
-[node name="CollisionShape3D20" type="CollisionShape3D" parent="CameraDirectory/RobotCollision"]
+[node name="CollisionShape3D20" type="CollisionShape3D" parent="CameraDirectory/RobotCollision" unique_id=1389888586]
 transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0.318, 0, 0.381)
 shape = SubResource("ConvexPolygonShape3D_bmupg")
 
-[node name="CollisionShape3D19" type="CollisionShape3D" parent="CameraDirectory/RobotCollision"]
+[node name="CollisionShape3D19" type="CollisionShape3D" parent="CameraDirectory/RobotCollision" unique_id=304523182]
 transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0.318, 0, 0.381)
 shape = SubResource("ConvexPolygonShape3D_ujam0")
 
-[node name="CollisionShape3D18" type="CollisionShape3D" parent="CameraDirectory/RobotCollision"]
+[node name="CollisionShape3D18" type="CollisionShape3D" parent="CameraDirectory/RobotCollision" unique_id=346086846]
 transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0.318, 0, 0.381)
 shape = SubResource("ConvexPolygonShape3D_tdyr6")
 
-[node name="CollisionShape3D17" type="CollisionShape3D" parent="CameraDirectory/RobotCollision"]
+[node name="CollisionShape3D17" type="CollisionShape3D" parent="CameraDirectory/RobotCollision" unique_id=900186174]
 transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0.318, 0, 0.381)
 shape = SubResource("ConvexPolygonShape3D_1aopm")
 
-[node name="CollisionShape3D16" type="CollisionShape3D" parent="CameraDirectory/RobotCollision"]
+[node name="CollisionShape3D16" type="CollisionShape3D" parent="CameraDirectory/RobotCollision" unique_id=1467102501]
 transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0.318, 0, 0.381)
 shape = SubResource("ConvexPolygonShape3D_dnenb")
 
-[node name="CollisionShape3D15" type="CollisionShape3D" parent="CameraDirectory/RobotCollision"]
+[node name="CollisionShape3D15" type="CollisionShape3D" parent="CameraDirectory/RobotCollision" unique_id=1127599605]
 transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0.318, 0, 0.381)
 shape = SubResource("ConvexPolygonShape3D_j5x86")
 
-[node name="CollisionShape3D14" type="CollisionShape3D" parent="CameraDirectory/RobotCollision"]
+[node name="CollisionShape3D14" type="CollisionShape3D" parent="CameraDirectory/RobotCollision" unique_id=203638692]
 transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0.318, 0, 0.381)
 shape = SubResource("ConvexPolygonShape3D_4ne0v")
 
-[node name="CollisionShape3D13" type="CollisionShape3D" parent="CameraDirectory/RobotCollision"]
+[node name="CollisionShape3D13" type="CollisionShape3D" parent="CameraDirectory/RobotCollision" unique_id=14089289]
 transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0.318, 0, 0.381)
 shape = SubResource("ConvexPolygonShape3D_hskrp")
 
-[node name="CollisionShape3D12" type="CollisionShape3D" parent="CameraDirectory/RobotCollision"]
+[node name="CollisionShape3D12" type="CollisionShape3D" parent="CameraDirectory/RobotCollision" unique_id=1853074451]
 transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0.318, 0, 0.381)
 shape = SubResource("ConvexPolygonShape3D_5yhpa")
 
-[node name="CollisionShape3D11" type="CollisionShape3D" parent="CameraDirectory/RobotCollision"]
+[node name="CollisionShape3D11" type="CollisionShape3D" parent="CameraDirectory/RobotCollision" unique_id=1351002441]
 transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0.318, 0, 0.381)
 shape = SubResource("ConvexPolygonShape3D_l170r")
 
-[node name="CollisionShape3D10" type="CollisionShape3D" parent="CameraDirectory/RobotCollision"]
+[node name="CollisionShape3D10" type="CollisionShape3D" parent="CameraDirectory/RobotCollision" unique_id=1446213417]
 transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0.318, 0, 0.381)
 shape = SubResource("ConvexPolygonShape3D_lfxd2")
 
-[node name="CollisionShape3D9" type="CollisionShape3D" parent="CameraDirectory/RobotCollision"]
+[node name="CollisionShape3D9" type="CollisionShape3D" parent="CameraDirectory/RobotCollision" unique_id=1926123879]
 transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0.318, 0, 0.381)
 shape = SubResource("ConvexPolygonShape3D_l3md7")
 
-[node name="CollisionShape3D8" type="CollisionShape3D" parent="CameraDirectory/RobotCollision"]
+[node name="CollisionShape3D8" type="CollisionShape3D" parent="CameraDirectory/RobotCollision" unique_id=782964454]
 transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0.318, 0, 0.381)
 shape = SubResource("ConvexPolygonShape3D_grrib")
 
-[node name="CollisionShape3D7" type="CollisionShape3D" parent="CameraDirectory/RobotCollision"]
+[node name="CollisionShape3D7" type="CollisionShape3D" parent="CameraDirectory/RobotCollision" unique_id=1391912662]
 transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0.318, 0, 0.381)
 shape = SubResource("ConvexPolygonShape3D_6yooq")
 
-[node name="CollisionShape3D6" type="CollisionShape3D" parent="CameraDirectory/RobotCollision"]
+[node name="CollisionShape3D6" type="CollisionShape3D" parent="CameraDirectory/RobotCollision" unique_id=1738732340]
 transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0.318, 0, 0.381)
 shape = SubResource("ConvexPolygonShape3D_4c17g")
 
-[node name="CollisionShape3D5" type="CollisionShape3D" parent="CameraDirectory/RobotCollision"]
+[node name="CollisionShape3D5" type="CollisionShape3D" parent="CameraDirectory/RobotCollision" unique_id=844892752]
 transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0.318, 0, 0.381)
 shape = SubResource("ConvexPolygonShape3D_0xgnk")
 
-[node name="CollisionShape3D4" type="CollisionShape3D" parent="CameraDirectory/RobotCollision"]
+[node name="CollisionShape3D4" type="CollisionShape3D" parent="CameraDirectory/RobotCollision" unique_id=1958691085]
 transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0.318, 0, 0.381)
 shape = SubResource("ConvexPolygonShape3D_xd65d")
 
-[node name="CollisionShape3D3" type="CollisionShape3D" parent="CameraDirectory/RobotCollision"]
+[node name="CollisionShape3D3" type="CollisionShape3D" parent="CameraDirectory/RobotCollision" unique_id=469953276]
 transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0.318, 0, 0.381)
 shape = SubResource("ConvexPolygonShape3D_c3g1n")
 
-[node name="CollisionShape3D2" type="CollisionShape3D" parent="CameraDirectory/RobotCollision"]
+[node name="CollisionShape3D2" type="CollisionShape3D" parent="CameraDirectory/RobotCollision" unique_id=1978220090]
 transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0.318, 0, 0.381)
 shape = SubResource("ConvexPolygonShape3D_008or")
 
-[node name="CollisionShape3D33" type="CollisionShape3D" parent="CameraDirectory/RobotCollision"]
+[node name="CollisionShape3D33" type="CollisionShape3D" parent="CameraDirectory/RobotCollision" unique_id=261167941]
 transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0.318, 0, 0.381)
 shape = SubResource("ConvexPolygonShape3D_lhgmr")
 
-[node name="AllowedAreas" type="Node3D" parent="."]
+[node name="AllowedAreas" type="Node3D" parent="." unique_id=1953323093]
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="AllowedAreas"]
+[node name="MeshInstance3D" type="MeshInstance3D" parent="AllowedAreas" unique_id=1161614396]
 transform = Transform3D(0.73655, 0, 0, 0, 0.297019, 0, 0, 0, 0.839801, 0.000758588, 0.272388, -0.00532842)
 mesh = SubResource("BoxMesh_nlgae")
 skeleton = NodePath("../..")
+
+[node name="Database" type="Node" parent="." unique_id=618031197]
+script = ExtResource("5_xwnim")

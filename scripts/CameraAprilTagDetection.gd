@@ -11,8 +11,9 @@ extends Node3D
 @onready var camera_directory: Node3D = $CameraDirectory
 @onready var allowed_areas: Node3D = $AllowedAreas
 @onready var robot_collision: Area3D = $CameraDirectory/RobotCollision
+@onready var database: Node = $Database
 
-var database: SQLite = null
+
 
 var position_translation_increment: Vector2
 var num_camera_changes: int = 0
@@ -20,6 +21,7 @@ var num_robot_pose_changes: int = 0
 var data: Array = []
 
 func _ready() -> void:
+	database.setup_db()
 	position_translation_increment = Vector2(field_dimensions_meters.x / num_poses_grid.x, field_dimensions_meters.y / num_poses_grid.y)
 	tag_directory.set_april_tags()
 
@@ -29,35 +31,7 @@ func _ready() -> void:
 
 	tag_directory.update_raycasts_for_next_iteration(camera_directory.get_current_camera())
 
-func setup_database():
-	database = SQLite.new()
-	database.path = "res://camera_data.sqlite"
-	database.verbosity_level = SQLite.VERBOSE
-	database.foreign_keys = true
-	database.open_db()
-	database.create_table("test_runs", {
-		"test_number": {
-			"data_type": "int",
-			"primary_key": true,
-			"auto_increment": true
-		},
-		"cam_pose_x": "real",
-		"cam_pose_y": "real",
-		"cam_pose_z": "real",
-		"cam_rot_x": "real",
-		"cam_rot_y": "real",
-		"cam_rot_z": "real"
-	})
 
-	database.create_table("april_tag_measurements", {
-		"test_num": {
-      "data_type": "int",
-      "foreign_key": "test_runs.test_number"
-    },
-		"skew_yaw": "real",
-		"skew_pitch": "real",
-		"distance": "real"
-	})
 
 func _process(delta: float) -> void:
 	if robot_collision.has_overlapping_bodies():
