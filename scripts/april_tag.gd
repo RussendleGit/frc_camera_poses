@@ -4,8 +4,11 @@ extends Node3D
 
 var tag_points = ["MarkerUR", "MarkerUL", "MarkerDR", "MarkerDL"]
 var ray_casts: Array[Node] = []
+
 @export var skew_yaw: float = 0.0
 @export var skew_pitch: float = 0.0
+@export var distance: float = 0.0
+
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:

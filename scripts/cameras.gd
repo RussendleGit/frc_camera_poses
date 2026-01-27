@@ -8,6 +8,7 @@ var camera_attributes: Array[Node3D] = []
 var current_camera_used_index: int = 0
 var current_camera: Node3D
 
+
 func setup_cameras():
 	for i in range(len(camera_attributes)):
 		camera_attributes[i].name = str(i)
@@ -59,7 +60,9 @@ func filter_april_tags(tags: Array[Node]) -> Array[Node3D]:
 			continue
 
 		# ignore tags that are too far away
-		if current_camera.global_position.distance_to(tag.global_position) > max_tag_distance:
+		var distance_from_cam: float = current_camera.global_position.distance_to(tag.global_position)
+		tag.distance = distance_from_cam
+		if distance_from_cam > max_tag_distance:
 			continue
 
 		# ignore tags that are too skewed
@@ -67,6 +70,7 @@ func filter_april_tags(tags: Array[Node]) -> Array[Node3D]:
 		var skew_pitch = wrapf(tag.global_rotation.z - current_camera.global_rotation.z, -PI, PI)
 		tag.skew_yaw = skew_yaw
 		tag.skew_pitch = skew_pitch
+
 		if abs(skew_yaw) > deg_to_rad(max_tag_skew_degrees) || abs(skew_pitch) > deg_to_rad(max_tag_skew_degrees):
 			tag.visible = false
 			continue
