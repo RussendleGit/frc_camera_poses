@@ -1,6 +1,6 @@
-[gd_scene load_steps=4 format=3 uid="uid://dh3npgcvbwq4y"]
+[gd_scene format=3 uid="uid://dh3npgcvbwq4y"]
 
-[ext_resource type="Script" path="res://scripts/april_tag.gd" id="1_yimfx"]
+[ext_resource type="Script" uid="uid://dgon4ckylyo2j" path="res://scripts/april_tag.gd" id="1_yimfx"]
 
 [sub_resource type="QuadMesh" id="QuadMesh_bifcq"]
 size = Vector2(0.165, 0.165)
@@ -8,50 +8,50 @@ size = Vector2(0.165, 0.165)
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_e10p0"]
 albedo_color = Color(1, 0, 1, 1)
 
-[node name="AprilTag" type="Node3D"]
+[node name="AprilTag" type="Node3D" unique_id=1222535008]
 script = ExtResource("1_yimfx")
 
-[node name="AprilTagMesh" type="MeshInstance3D" parent="."]
+[node name="AprilTagMesh" type="MeshInstance3D" parent="." unique_id=1465848847]
 transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0, 0)
 mesh = SubResource("QuadMesh_bifcq")
 surface_material_override/0 = SubResource("StandardMaterial3D_e10p0")
 
-[node name="MarkerUR" type="Marker3D" parent="."]
+[node name="MarkerUR" type="Marker3D" parent="." unique_id=1813933373]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.083, 0.083, 0)
 
-[node name="RayCast3D" type="RayCast3D" parent="MarkerUR"]
+[node name="RayCast3D" type="RayCast3D" parent="MarkerUR" unique_id=1657142743]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.02)
 collide_with_areas = true
 debug_shape_custom_color = Color(0.654902, 0, 1, 1)
 debug_shape_thickness = 1
 
-[node name="MarkerUL" type="Marker3D" parent="."]
+[node name="MarkerUL" type="Marker3D" parent="." unique_id=1693784984]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.083, 0.083, 0)
 
-[node name="RayCast3D" type="RayCast3D" parent="MarkerUL"]
+[node name="RayCast3D" type="RayCast3D" parent="MarkerUL" unique_id=993113545]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.02)
 collide_with_areas = true
 debug_shape_custom_color = Color(0.654902, 0, 1, 1)
 debug_shape_thickness = 1
 
-[node name="MarkerDR" type="Marker3D" parent="."]
+[node name="MarkerDR" type="Marker3D" parent="." unique_id=556950548]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.083, -0.083, 0)
 
-[node name="RayCast3D" type="RayCast3D" parent="MarkerDR"]
+[node name="RayCast3D" type="RayCast3D" parent="MarkerDR" unique_id=1406749699]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.02)
 collide_with_areas = true
 debug_shape_custom_color = Color(0.654902, 0, 1, 1)
 debug_shape_thickness = 1
 
-[node name="MarkerDL" type="Marker3D" parent="."]
+[node name="MarkerDL" type="Marker3D" parent="." unique_id=1709353345]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.083, -0.083, 0)
 
-[node name="RayCast3D" type="RayCast3D" parent="MarkerDL"]
+[node name="RayCast3D" type="RayCast3D" parent="MarkerDL" unique_id=2113868040]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.02)
 collide_with_areas = true
 debug_shape_custom_color = Color(0.654902, 0, 1, 1)
 debug_shape_thickness = 1
 
-[node name="Label3D" type="Label3D" parent="."]
+[node name="Label3D" type="Label3D" parent="." unique_id=1166159917]
 transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0, -0.000946313)
 text = "99"
