@@ -36,7 +36,7 @@ func set_april_tags(json_path: String = "2026-rebuilt-welded.json") -> void:
 		add_child(tag_instance)
 
 ## because you can't force update a raycast safely
-## this will just update the positions for the next camera, and let godot handle it
+## this will just update the positions for the next camera, and let godot handle the collisions
 func update_raycasts_for_next_iteration(next_camera_attribute: Node3D) -> void:
 	for tag in get_children():
 		for ray_cast in tag.get_ray_casts():

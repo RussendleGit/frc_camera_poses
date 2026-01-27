@@ -17,7 +17,6 @@ var num_camera_changes: int = 0
 var num_robot_pose_changes: int = 0
 var data: Array = []
 
-# Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	position_translation_increment = Vector2(field_dimensions_meters.x / num_poses_grid.x, field_dimensions_meters.y / num_poses_grid.y)
 	tag_directory.set_april_tags()
@@ -29,7 +28,6 @@ func _ready() -> void:
 	tag_directory.update_raycasts_for_next_iteration(camera_directory.get_current_camera())
 
 		
-# Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
 	if robot_collision.has_overlapping_bodies():
 		move_robot()
@@ -46,7 +44,10 @@ func _process(delta: float) -> void:
 
 	tag_directory.update_raycasts_for_next_iteration(camera_directory.get_current_camera())
 
-
+## moves the robot based off it's current position
+## starts by rotating, 
+## if it has made a full revolution, then change it's position x, back to rotating again
+## if it has gone through all the x positions, then it will translate it's y position
 func move_robot():
 	var new_rot: float = camera_directory.global_rotation_degrees.y + rotation_increment_degrees
 	if new_rot < 180.0 - rotation_increment_degrees: 

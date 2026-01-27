@@ -22,6 +22,7 @@ func add_camera(cam_position_meters: Vector3, cam_rotation_degrees: Vector3):
 	cam_instance.rotation_degrees = Vector3(cam_rotation_degrees.x, cam_rotation_degrees.z, cam_rotation_degrees.y)
 	camera_attributes.append(cam_instance)
 
+## gets the current camera that's supposed to be read
 func get_current_camera():
 	return camera_attributes[current_camera_used_index]
 
@@ -35,9 +36,12 @@ func next_camera() -> bool:
 	current_camera = camera_attributes[current_camera_used_index]
 	return is_reset
 
+## usually used if the robot is in an invalid position
+## resets the camera back to 0
 func skip_current_iteration():
 	current_camera_used_index = 0
 
+## given the april tags, this filters the tags based off restrictions set on this node
 func filter_april_tags(tags: Array[Node]) -> Array[Node3D]:
 	var viewable_tags: Array[Node3D] = []
 	
@@ -88,8 +92,7 @@ func filter_april_tags(tags: Array[Node]) -> Array[Node3D]:
 			tag.visible = false
 			continue
 
-
-		
 		viewable_tags.append(tag)
 		tag.visible = true
+		
 	return viewable_tags
