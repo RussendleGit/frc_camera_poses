@@ -44,7 +44,12 @@
 ## Phase 5: Moving the camera
 
 - [ ] Create restrictions for camera poses that can be modeled as boxes
+  - [ ] Store a 'drivetrain width' and 'drivetrain length' variable 
+  - [ ] Add a node for boxes for avaliable space
+  - [ ] variables for max and min pitch
 - [ ] Nested Loop For Camera Poses:
+  - [ ] Check that the new camera pose is within the drivetrain limits
+  - [ ] Check that the new camera rotation is within limits
   - [ ] X
   - [ ] Y
   - [ ] Yaw 
