@@ -32,15 +32,24 @@
 - [x] Data Capture:
   - [x] Move the Robot Proxy to the current XYZ.
   - [x] Run the visibility check.
-  - [ ] Store the results in a Dictionary or Array
+  - [x] Store the results in a Dictionary or Array
 
 ## Phase 4: Output & Export
 
 - [ ] Console Logger: Print a live status (e.g., "Testing position (12, 4)...").
-- [ ] File Export: Write the final data to a .csv or .json file for analysis.
+- [x] File Export: Write the final data to a .csv or .json file for analysis.
   - Fields to include: x_pos, y_pos, rotation, tags_visible_count.
 - [ ] Visual Debugger: Create a script that draws a green/red dot at each grid point in the Godot Editor to visualize the "dead zones" immediately
 
+## Phase 5: Moving the camera
+
+- [ ] Create restrictions for camera poses that can be modeled as boxes
+- [ ] Nested Loop For Camera Poses:
+  - [ ] X
+  - [ ] Y
+  - [ ] Yaw 
+  - [ ] Pitch
+  
 ## Bonus: Robotics Specifics
 
 - [ ] Dual Cameras: If your robot has two cameras, run the check twice per position (once for each camera offset) and combine the unique tags seen.
