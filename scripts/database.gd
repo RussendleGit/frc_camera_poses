@@ -7,9 +7,7 @@ var current_test: Dictionary
 func new_test(camera_attributes: Array[Node3D]):
 	if !current_test.is_empty():
 		all_data.append(current_test)
-	print(all_data)
 		
-
 	current_test = {
 		"Camera_attributes": [],
 		"Results": {}
@@ -26,11 +24,14 @@ func new_test(camera_attributes: Array[Node3D]):
 		})
 		current_test["Results"][cam.name] = []
 
+		print("Testing Camera pose, at translation: " + str(cam.global_position) + ", and rotation :" + str(cam.global_rotation))
 
 func add_measurement(camera_attribute: Node3D, robot: Node3D, tags: Array[Node3D]):
+	print("Testing Measurement at: " + str(robot.global_position) + ", and rotation :" + str(robot.global_rotation))
 	var tag_data = []
 	for tag in tags:
 		tag_data.append({
+			"tag_name": tag.name,
 			"skew_yaw": tag.skew_yaw,
 			"skew_pitch": tag.skew_pitch,
 			"distance": tag.distance

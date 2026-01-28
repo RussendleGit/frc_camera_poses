@@ -72,11 +72,10 @@ func move_robot():
 	if camera_directory.global_position.z < field_dimensions_meters.y + (position_translation_increment.y / 2.0): return
 	camera_directory.global_position.z = 0.0
 	num_camera_changes += 1
+	
 	if num_camera_changes >= tests:
 		database.save()
 		get_tree().quit()
-
-	print("completed full cycle")
 	
 	database.new_test(camera_directory.camera_attributes)
 	
