@@ -2,10 +2,11 @@ extends Node3D
 
 
 
-@export var num_poses_grid: Vector2 = Vector2(10.0, 10.0)
+@export var num_poses_grid: Vector2 = Vector2(4.0, 4.0)
 @export var rotation_increment_degrees: float = 12
 @export var camera_translation_increment: float = 0.1
 @export var field_dimensions_meters: Vector2 = Vector2(16.540988, 8.069326)
+@export var tests: int = 3
 
 @onready var tag_directory: Node3D = $TagDirectory
 @onready var camera_directory: Node3D = $CameraDirectory
@@ -17,20 +18,19 @@ extends Node3D
 
 var position_translation_increment: Vector2
 var num_camera_changes: int = 0
-var num_robot_pose_changes: int = 0
 var data: Array = []
 
 func _ready() -> void:
-	database.setup_db()
 	position_translation_increment = Vector2(
 		(field_dimensions_meters.x / 2.0) / num_poses_grid.x, 
 		field_dimensions_meters.y / num_poses_grid.y
 	)
 	tag_directory.set_april_tags()
 
-	#camera_directory.add_camera(Vector3(0.0, -0.2, 0.4), Vector3(0.0, 15.0, 30.0)) 
+	camera_directory.add_camera(Vector3(0.0, -0.2, 0.4), Vector3(0.0, 15.0, 30.0)) 
 	camera_directory.add_camera(Vector3(0.0, 0.2, 0.4), Vector3(0.0, 15.0, -30.0)) 
 	camera_directory.setup_cameras()
+	database.new_test(camera_directory.camera_attributes)
 
 	tag_directory.update_raycasts_for_next_iteration(camera_directory.get_current_camera())
 
@@ -44,6 +44,7 @@ func _process(delta: float) -> void:
 		return
 		
 	var unblocked_tags = camera_directory.filter_april_tags(tag_directory.get_all_tags())
+	database.add_measurement(camera_directory.get_current_camera(), camera_directory, unblocked_tags)
 
 	# determine if all the cameras have been processed. If so, test for the next pose
 	var is_reset = camera_directory.next_camera()
@@ -71,6 +72,11 @@ func move_robot():
 	if camera_directory.global_position.z < field_dimensions_meters.y + (position_translation_increment.y / 2.0): return
 	camera_directory.global_position.z = 0.0
 	num_camera_changes += 1
+	if num_camera_changes >= tests:
+		database.save()
+		get_tree().quit()
+
 	print("completed full cycle")
 	
+	database.new_test(camera_directory.camera_attributes)
 	

@@ -1,49 +1,58 @@
 extends Node
 
-var database: SQLite = null
 
-func setup_db():
-	database = SQLite.new()
-	database.path = "res://camera_data.sqlite"
-	database.verbosity_level = SQLite.VERBOSE
-	database.foreign_keys = true
-	database.open_db()
-	
-	var test_runs_table: Dictionary = {
-		"cam_pose_x": {"data_type": "real"},
-		"cam_pose_y": {"data_type": "real"},
-		"cam_pose_z": {"data_type": "real"},
-		"cam_rot_x": {"data_type": "real"},
-		"cam_rot_y": {"data_type": "real"},
-		"cam_rot_z": {"data_type": "real"},
-		"test_number": {
-			"data_type": "int",
-			"primary_key": true,
-			"auto_increment": true
-		},
+var all_data: Array = []
+var current_test: Dictionary
+
+func new_test(camera_attributes: Array[Node3D]):
+	if !current_test.is_empty():
+		all_data.append(current_test)
+	print(all_data)
+		
+
+	current_test = {
+		"Camera_attributes": [],
+		"Results": {}
 	}
-	
-	database.create_table("test_runs", test_runs_table)
+	for cam in camera_attributes:
+		current_test["Camera_attributes"].append({
+			"name": cam.name,
+			"tx": cam.global_position.x,
+			"ty": cam.global_position.z,
+			"tz": cam.global_position.y,
+			"rx": cam.global_rotation.x,
+			"ry": cam.global_rotation.z,
+			"rz": cam.global_rotation.y
+		})
+		current_test["Results"][cam.name] = []
 
-	var april_tag_measurements_table: Dictionary = {
-		"test_num": {
-		  "data_type": "int",
-		  "foreign_key": "test_runs.test_number"
+
+func add_measurement(camera_attribute: Node3D, robot: Node3D, tags: Array[Node3D]):
+	var tag_data = []
+	for tag in tags:
+		tag_data.append({
+			"skew_yaw": tag.skew_yaw,
+			"skew_pitch": tag.skew_pitch,
+			"distance": tag.distance
+			}
+		)
+	var measurement_data = {
+		"robot position": {
+			"tx": robot.global_position.x,
+			"ty": robot.global_position.z,
+			"tz": robot.global_position.y,
+			"rx": robot.global_rotation.x,
+			"ry": robot.global_rotation.z,
+			"rz": robot.global_rotation.y
 		},
-		"skew_yaw": {"data_type": "real"},
-		"skew_pitch": {"data_type": "real"},
-		"distance": {"data_type": "real"}
+		"tag_data": tag_data
 	}
-	database.create_table("april_tag_measurements", april_tag_measurements_table)
+	current_test["Results"][camera_attribute.name].append(measurement_data)
 
-func add_camera(cam_pose: Vector3, cam_rot: Vector3):
-	database.insert_row("test_runs", {
-		"cam_pose_x": cam_pose.x,
-		"cam_pose_y": cam_pose.z,
-		"cam_pose_z": cam_pose.y,
-		"cam_rot_x": cam_pose.x,
-		"cam_rot_y": cam_pose.z,
-		"cam_rot_z": cam_pose.y
-	})
-func close_db():
-	database.close_db()
+func save():
+	all_data.append(current_test)
+	var file = FileAccess.open("res://results.json", FileAccess.WRITE)
+	var json_string = JSON.stringify(all_data, "\t") 
+	file.store_string(json_string)
+	file.close()
+
