@@ -27,7 +27,6 @@ func new_test(camera_attributes: Array[Node3D]):
 		print("Testing Camera pose, at translation: " + str(cam.global_position) + ", and rotation :" + str(cam.global_rotation))
 
 func add_measurement(camera_attribute: Node3D, robot: Node3D, tags: Array[Node3D]):
-	print("Testing Measurement at: " + str(robot.global_position) + ", and rotation :" + str(robot.global_rotation))
 	var tag_data = []
 	for tag in tags:
 		tag_data.append({
@@ -50,10 +49,13 @@ func add_measurement(camera_attribute: Node3D, robot: Node3D, tags: Array[Node3D
 	}
 	current_test["Results"][camera_attribute.name].append(measurement_data)
 
-func save():
+func save(crash_game: bool = false):
 	all_data.append(current_test)
 	var file = FileAccess.open("res://results.json", FileAccess.WRITE)
 	var json_string = JSON.stringify(all_data, "\t") 
 	file.store_string(json_string)
 	file.close()
+
+	if crash_game:
+		get_tree().quit()
 

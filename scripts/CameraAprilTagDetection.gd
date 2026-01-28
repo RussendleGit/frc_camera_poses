@@ -2,11 +2,11 @@ extends Node3D
 
 
 
-@export var num_poses_grid: Vector2 = Vector2(4.0, 4.0)
-@export var rotation_increment_degrees: float = 12
+@export var num_poses_grid: Vector2 = Vector2(20.0, 20.0)
+@export var rotation_increment_degrees: float = 22.5
 @export var camera_translation_increment: float = 0.1
 @export var field_dimensions_meters: Vector2 = Vector2(16.540988, 8.069326)
-@export var tests: int = 3
+@export var tests: int = 1
 
 @onready var tag_directory: Node3D = $TagDirectory
 @onready var camera_directory: Node3D = $CameraDirectory
@@ -29,6 +29,7 @@ func _ready() -> void:
 
 	camera_directory.add_camera(Vector3(0.0, -0.2, 0.4), Vector3(0.0, 15.0, 30.0)) 
 	camera_directory.add_camera(Vector3(0.0, 0.2, 0.4), Vector3(0.0, 15.0, -30.0)) 
+	camera_directory.add_camera(Vector3(0.0, 0.0, 0.4), Vector3(0.0, 0.0, 0.0)) 
 	camera_directory.setup_cameras()
 	database.new_test(camera_directory.camera_attributes)
 
@@ -74,8 +75,8 @@ func move_robot():
 	num_camera_changes += 1
 	
 	if num_camera_changes >= tests:
-		database.save()
-		get_tree().quit()
+		database.save(true)
+		
 	
 	database.new_test(camera_directory.camera_attributes)
 	
