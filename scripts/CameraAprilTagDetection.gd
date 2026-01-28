@@ -2,17 +2,17 @@ extends Node3D
 
 
 
-@export var num_poses_grid: Vector2 = Vector2(20.0, 20.0)
+@export var num_poses_grid: Vector2 = Vector2(3.0, 3.0)
 @export var rotation_increment_degrees: float = 22.5
-@export var camera_translation_increment: float = 0.1
 @export var field_dimensions_meters: Vector2 = Vector2(16.540988, 8.069326)
-@export var tests: int = 1
+@export var tests: int = 100
 
 @onready var tag_directory: Node3D = $TagDirectory
 @onready var camera_directory: Node3D = $CameraDirectory
 @onready var allowed_areas: Node3D = $AllowedAreas
 @onready var robot_collision: Area3D = $CameraDirectory/RobotCollision
 @onready var database: Node = $Database
+@onready var camera_3d: Camera3D = $"../Camera3D"
 
 
 
@@ -27,10 +27,10 @@ func _ready() -> void:
 	)
 	tag_directory.set_april_tags()
 
-	camera_directory.add_camera(Vector3(0.0, -0.2, 0.4), Vector3(0.0, 15.0, 30.0)) 
-	camera_directory.add_camera(Vector3(0.0, 0.2, 0.4), Vector3(0.0, 15.0, -30.0)) 
-	camera_directory.add_camera(Vector3(0.0, 0.0, 0.4), Vector3(0.0, 0.0, 0.0)) 
-	camera_directory.setup_cameras()
+	# camera_directory.add_camera(Vector3(0.0, -0.2, 0.4), Vector3(0.0, 15.0, 30.0)) 
+	# camera_directory.add_camera(Vector3(0.0, 0.2, 0.4), Vector3(0.0, 15.0, -30.0)) 
+	# camera_directory.add_camera(Vector3(0.0, 0.0, 0.4), Vector3(0.0, 0.0, 0.0)) 
+	camera_directory.add_cameras(2)
 	database.new_test(camera_directory.camera_attributes)
 
 	tag_directory.update_raycasts_for_next_iteration(camera_directory.get_current_camera())
@@ -38,6 +38,8 @@ func _ready() -> void:
 
 
 func _process(delta: float) -> void:
+	camera_3d.position = camera_directory.position
+	camera_3d.position.y = 3.0
 	if robot_collision.has_overlapping_bodies():
 		move_robot()
 		tag_directory.update_raycasts_for_next_iteration(camera_directory.get_current_camera())
@@ -76,7 +78,8 @@ func move_robot():
 	
 	if num_camera_changes >= tests:
 		database.save(true)
-		
 	
+	camera_directory.move_camera()
 	database.new_test(camera_directory.camera_attributes)
+
 	
