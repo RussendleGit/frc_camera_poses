@@ -5,8 +5,8 @@ extends Node3D
 @export var camera_fov_degrees: float = 100.0
 
 @export var camera_translation_increment: float = .5
-@export var camera_rotation_increment_degrees: float = 2.0
-@export var drive_train_dimensions: Vector3 = Vector3(3.0 / 39.37, 30.0 / 39.37, 30.0 / 39.37)
+@export var camera_rotation_increment_degrees: float = 45.0
+@export var drive_train_dimensions: Vector3 = Vector3(35.0 / 39.37, 30.0 / 39.37, 30.0 / 39.37)
 @export var min_cam_hight: float = 0.15
 @export var camera_pitch_limits_degrees: Vector2 = Vector2(-35.0, 35.0)
 
@@ -34,7 +34,7 @@ func add_cameras(num_cams: int):
 	for i in range(num_cams):
 		add_camera_at_pose(
 			Vector3(-drive_train_dimensions.x / 2.0, -drive_train_dimensions.z / 2.0, min_cam_hight), 
-			Vector3(0.0, 0.0, -camera_pitch_limits_degrees.x / 2)
+			Vector3(0.0, -camera_pitch_limits_degrees.x / 2.0, 0.0)
 		)
 	setup_cameras()
 
@@ -121,7 +121,7 @@ func move_camera():
 		# yaw
 		var new_yaw: float = cam.rotation_degrees.y + camera_rotation_increment_degrees
 		if new_yaw < 180.0: 
-			cam.rotation.y += camera_rotation_increment_degrees
+			cam.rotation_degrees.y += camera_rotation_increment_degrees
 			return
 		cam.rotation.y = -PI + 0.0001
 
