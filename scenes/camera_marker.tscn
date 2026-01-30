@@ -1,5 +1,7 @@
 [gd_scene format=3 uid="uid://c6avp2adus3bw"]
 
+[sub_resource type="BoxMesh" id="BoxMesh_ilsyt"]
+
 [node name="CameraMarker" type="Marker3D" unique_id=2011441446]
 
 [node name="Forward" type="RayCast3D" parent="." unique_id=212611904]
@@ -9,3 +11,7 @@ hit_back_faces = false
 collide_with_bodies = false
 debug_shape_custom_color = Color(0, 1, 0, 1)
 debug_shape_thickness = 1
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=1933168306]
+transform = Transform3D(0.1, 0, 0, 0, 0.1, 0, 0, 0, 0.1, 0, 0, 0)
+mesh = SubResource("BoxMesh_ilsyt")

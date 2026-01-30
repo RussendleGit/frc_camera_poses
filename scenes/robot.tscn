@@ -106,7 +106,7 @@ points = PackedVector3Array(-0.226571, -0.0143194, 0.162166, 0.0972016, 0.118103
 transparency = 1
 depth_draw_mode = 1
 no_depth_test = true
-albedo_color = Color(0, 1, 0, 0.180392)
+albedo_color = Color(0, 0.85000014, 1, 0.78039217)
 
 [sub_resource type="BoxMesh" id="BoxMesh_nlgae"]
 material = SubResource("StandardMaterial3D_d62q8")
@@ -263,12 +263,12 @@ shape = SubResource("ConvexPolygonShape3D_008or")
 transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0.318, 0, 0.381)
 shape = SubResource("ConvexPolygonShape3D_lhgmr")
 
-[node name="AllowedAreas" type="Node3D" parent="." unique_id=1953323093]
+[node name="AllowedAreas" type="Node3D" parent="CameraDirectory" unique_id=1953323093]
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="AllowedAreas" unique_id=1161614396]
-transform = Transform3D(0.73655, 0, 0, 0, 0.297019, 0, 0, 0, 0.839801, 0.000758588, 0.272388, -0.00532842)
+[node name="MeshInstance3D" type="MeshInstance3D" parent="CameraDirectory/AllowedAreas" unique_id=1161614396]
+transform = Transform3D(0.8457153, 0, 0, 0, 0.35943788, 0, 0, 0, 1, 0, 0.24676666, 0)
 mesh = SubResource("BoxMesh_nlgae")
-skeleton = NodePath("../..")
+skeleton = NodePath("../../..")
 
 [node name="Database" type="Node" parent="." unique_id=618031197]
 script = ExtResource("5_xwnim")

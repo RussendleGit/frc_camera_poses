@@ -1,14 +1,16 @@
 extends Node3D
 
+@onready var allowed_areas: Node3D = $AllowedAreas
+
 @export var max_tag_distance: float = 200.0 / 39.37
 @export var max_tag_skew_degrees: float = 80
 @export var camera_fov_degrees: float = 100.0
 
-@export var camera_translation_increment: float = .5
-@export var camera_rotation_increment_degrees: float = 45.0
-@export var drive_train_dimensions: Vector3 = Vector3(35.0 / 39.37, 30.0 / 39.37, 30.0 / 39.37)
+@export var camera_translation_increment: float = .1
+@export var camera_rotation_increment_degrees: float = 10.0
+@export var drive_train_dimensions: Vector3 = Vector3(0.7, 2.0, 1.0)
 @export var min_cam_hight: float = 0.15
-@export var camera_pitch_limits_degrees: Vector2 = Vector2(-35.0, 35.0)
+@export var camera_pitch_limits_degrees: float = 45.0
 
 var camera_attributes: Array[Node3D] = []
 var current_camera_used_index: int = 0
@@ -25,16 +27,16 @@ func setup_cameras():
 func add_camera_at_pose(cam_position_meters: Vector3, cam_rotation_degrees: Vector3):
 	var camera_scene = load("res://scenes/camera_marker.tscn")
 	var cam_instance: Node = camera_scene.instantiate()
-	cam_instance.position = Vector3(cam_position_meters.x, cam_position_meters.z, cam_position_meters.y)
-	cam_instance.rotation_degrees = Vector3(cam_rotation_degrees.x, cam_rotation_degrees.z, cam_rotation_degrees.y)
+	cam_instance.position = Vector3(cam_position_meters.x, cam_position_meters.y, cam_position_meters.z)
+	cam_instance.rotation_degrees = Vector3(cam_rotation_degrees.x, cam_rotation_degrees.y, cam_rotation_degrees.z)
 	camera_attributes.append(cam_instance)
 
 ## adds camera to the less most position on the robot, and sets them up automatically
 func add_cameras(num_cams: int):
 	for i in range(num_cams):
 		add_camera_at_pose(
-			Vector3(-drive_train_dimensions.x / 2.0, -drive_train_dimensions.z / 2.0, min_cam_hight), 
-			Vector3(0.0, -camera_pitch_limits_degrees.x / 2.0, 0.0)
+			Vector3(-drive_train_dimensions.x, min_cam_hight, -drive_train_dimensions.z), 
+			Vector3(0.0, -camera_pitch_limits_degrees, 0.0)
 		)
 	setup_cameras()
 
@@ -118,6 +120,7 @@ func filter_april_tags(tags: Array[Node]) -> Array[Node3D]:
 
 func move_camera():
 	for cam in camera_attributes:
+		move_single_camera(cam)
 		# yaw
 		var new_yaw: float = cam.rotation_degrees.y + camera_rotation_increment_degrees
 		if new_yaw < 180.0: 
@@ -127,25 +130,56 @@ func move_camera():
 
 		# pitch
 		var new_pitch: float = cam.rotation_degrees.z + camera_rotation_increment_degrees
-		if new_pitch > camera_pitch_limits_degrees.x && new_pitch < camera_pitch_limits_degrees.y:
-			cam.rotation_degrees.z += new_pitch
-			print("pitching")
+		if  new_pitch > -camera_pitch_limits_degrees && new_pitch < camera_pitch_limits_degrees:
+			cam.rotation_degrees.z += camera_rotation_increment_degrees
 			return
-		cam.rotation_degrees.x = camera_pitch_limits_degrees.x
+		cam.rotation_degrees.x = -camera_pitch_limits_degrees
+		print("zero")
+
+		
+
+
+
+func move_single_camera(cam: Node3D) -> void:
+
 
 		# x
-		cam.position.x += camera_translation_increment
-		if cam.position.x < drive_train_dimensions.x: return
+		if cam.position.x < drive_train_dimensions.x: 
+			cam.position.x += camera_translation_increment
+			if camera_is_in_limits(): return
+			print("NO")
+			move_single_camera(cam)
 		cam.position.x = -drive_train_dimensions.x
+		print(cam.position.x)
+		print(drive_train_dimensions.x)
 
 		# z
-		cam.position.z += camera_translation_increment
-		if cam.position.z < drive_train_dimensions.z: return
+		if cam.position.z < drive_train_dimensions.z:
+			cam.position.z += camera_translation_increment
+			if camera_is_in_limits(): return
+			move_single_camera(cam)
 		cam.position.z = -drive_train_dimensions.z
 
 		# y
-		cam.position.y += camera_translation_increment
-		if cam.position.y < drive_train_dimensions.y: return
+		while cam.position.y < drive_train_dimensions.y:
+			cam.position.y += camera_translation_increment
+			if camera_is_in_limits(): return
+			move_single_camera(cam)
 		cam.position.y = min_cam_hight
 
-	
+func camera_is_in_limits() -> bool:
+
+	var allowed_areas_children = allowed_areas.get_children()
+	for area in allowed_areas_children:
+
+		# Assuming these are CollisionShape3D or similar with box shapes
+		# Calculate the min and max bounds of the box
+		var min_bounds = area.position - area.scale / 2.0
+		var max_bounds = area.position + area.scale / 2.0
+
+		# Check if camera is within this box on ALL axes
+		if (current_camera.position.x >= min_bounds.x && current_camera.position.x <= max_bounds.x &&
+			current_camera.position.y >= min_bounds.y && current_camera.position.y <= max_bounds.y &&
+			current_camera.position.z >= min_bounds.z && current_camera.position.z <= max_bounds.z):
+			return true
+	return false

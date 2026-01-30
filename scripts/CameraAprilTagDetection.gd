@@ -9,7 +9,6 @@ extends Node3D
 
 @onready var tag_directory: Node3D = $TagDirectory
 @onready var camera_directory: Node3D = $CameraDirectory
-@onready var allowed_areas: Node3D = $AllowedAreas
 @onready var robot_collision: Area3D = $CameraDirectory/RobotCollision
 @onready var database: Node = $Database
 
@@ -55,6 +54,8 @@ func _process(delta: float) -> void:
 ## if it has made a full revolution, then change it's position x, back to rotating again
 ## if it has gone through all the x positions, then it will translate it's y position
 func move_robot():
+	camera_directory.move_camera()
+	return
 	var new_rot: float = camera_directory.global_rotation_degrees.y + rotation_increment_degrees
 	if new_rot < 180.0 - rotation_increment_degrees: 
 		camera_directory.global_rotation_degrees.y += rotation_increment_degrees
@@ -75,5 +76,3 @@ func move_robot():
 	
 	camera_directory.move_camera()
 	database.new_test(camera_directory.camera_attributes)
-
-	
