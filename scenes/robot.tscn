@@ -102,15 +102,6 @@ points = PackedVector3Array(-0.285452, 0.000370698, 0.176915, -0.064712, 0.02979
 [sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_lhgmr"]
 points = PackedVector3Array(-0.226571, -0.0143194, 0.162166, 0.0972016, 0.118103, 0.000322457, 0.0677235, -0.102659, 0.0150226, -0.285452, 0.118103, 0.0150226, -0.285452, -0.0879211, 0.000322457, 0.0530031, -0.102659, 0.132725, -0.00584077, 0.0445015, -0.0438184, -0.285452, -0.102659, 0.132725, 0.00887957, 0.118103, 0.147445, 0.0824813, -0.0584891, 0.147445, -0.0647596, 0.103366, -0.0438184, -0.285452, 0.000396626, 0.147445, -0.152969, 0.118103, 0.118005, 0.0972016, -0.043773, 0.000322457, -0.0794425, 0.0150694, -0.0438184, -0.0647596, -0.0290354, 0.162166, -0.285452, -0.102659, 0.0150226, 0.0824813, 0.118103, 0.147445, 0.0677235, -0.0879211, 0.000322457, -0.285452, -0.0879211, 0.147445, -0.167652, 0.0297854, 0.162166, -0.0941254, 0.0739335, -0.0438184, 0.0530031, -0.0879211, 0.147445, -0.270896, 0.109705, 0.0048, -0.0500018, 0.118103, -0.0291182, -0.138211, 0.103366, 0.132725, -0.0941254, 0.0297854, 0.162166, -0.0353189, 0.0150694, -0.0438184)
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_d62q8"]
-transparency = 1
-depth_draw_mode = 1
-no_depth_test = true
-albedo_color = Color(0, 1, 0, 0.180392)
-
-[sub_resource type="BoxMesh" id="BoxMesh_nlgae"]
-material = SubResource("StandardMaterial3D_d62q8")
-
 [node name="Robot" type="Node3D" unique_id=1707282263]
 script = ExtResource("1_mfk7f")
 
@@ -134,6 +125,8 @@ mesh = ExtResource("2_1h3pe")
 skeleton = NodePath("")
 
 [node name="RobotCollision" type="Area3D" parent="CameraDirectory" unique_id=1585652985]
+collision_layer = 0
+collision_mask = 0
 
 [node name="CollisionShape3D32" type="CollisionShape3D" parent="CameraDirectory/RobotCollision" unique_id=506938676]
 transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0.318, 0, 0.381)
@@ -262,13 +255,6 @@ shape = SubResource("ConvexPolygonShape3D_008or")
 [node name="CollisionShape3D33" type="CollisionShape3D" parent="CameraDirectory/RobotCollision" unique_id=261167941]
 transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0.318, 0, 0.381)
 shape = SubResource("ConvexPolygonShape3D_lhgmr")
-
-[node name="AllowedAreas" type="Node3D" parent="." unique_id=1953323093]
-
-[node name="MeshInstance3D" type="MeshInstance3D" parent="AllowedAreas" unique_id=1161614396]
-transform = Transform3D(0.73655, 0, 0, 0, 0.297019, 0, 0, 0, 0.839801, 0.000758588, 0.272388, -0.00532842)
-mesh = SubResource("BoxMesh_nlgae")
-skeleton = NodePath("../..")
 
 [node name="Database" type="Node" parent="." unique_id=618031197]
 script = ExtResource("5_xwnim")

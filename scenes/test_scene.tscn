@@ -20,9 +20,6 @@ transform = Transform3D(0.972931, 0.170114, -0.15642, 0.160314, -0.00931405, 0.9
 [node name="Camera3D" type="Camera3D" parent="Camera2/CameraDirectory" index="3" unique_id=731621612]
 transform = Transform3D(-0.9966375, -0.05033357, 0.064656325, 0, 0.78908366, 0.61428493, -0.08193849, 0.6122192, -0.78643036, 0.058541596, 0.84109575, -0.68672305)
 
-[node name="MeshInstance3D" parent="Camera2/AllowedAreas" parent_id_path=PackedInt32Array(1212460062, 1953323093) index="0" unique_id=1161614396]
-transform = Transform3D(0.73655, 0, 0, 0, 0.297019, 0, 0, 0, 0.839801, 0, 0.272, -0.005)
-
 [node name="Camera3D" type="Camera3D" parent="." unique_id=1790900031]
 transform = Transform3D(1, 0, 0, 0, -0.0154455, 0.999881, 0, -0.999881, -0.0154455, 8.87803, 8.47031, 3.44638)
 current = true

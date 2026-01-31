@@ -5,7 +5,7 @@ extends Node3D
 @export var camera_fov_degrees: float = 100.0
 
 @export var camera_translation_increment: float = .5
-@export var camera_rotation_increment_degrees: float = 45.0
+@export var camera_rotation_increment_degrees: float = 5.0
 @export var drive_train_dimensions: Vector3 = Vector3(35.0 / 39.37, 30.0 / 39.37, 30.0 / 39.37)
 @export var min_cam_hight: float = 0.15
 @export var camera_pitch_limits_degrees: Vector2 = Vector2(-35.0, 35.0)
@@ -128,10 +128,10 @@ func move_camera():
 		# pitch
 		var new_pitch: float = cam.rotation_degrees.z + camera_rotation_increment_degrees
 		if new_pitch > camera_pitch_limits_degrees.x && new_pitch < camera_pitch_limits_degrees.y:
-			cam.rotation_degrees.z += new_pitch
+			cam.rotation_degrees.z += camera_rotation_increment_degrees
 			print("pitching")
 			return
-		cam.rotation_degrees.x = camera_pitch_limits_degrees.x
+		cam.rotation_degrees.z = camera_pitch_limits_degrees.x
 
 		# x
 		cam.position.x += camera_translation_increment
