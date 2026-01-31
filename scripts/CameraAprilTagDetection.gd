@@ -5,7 +5,6 @@ extends Node3D
 @export var num_poses_grid: Vector2 = Vector2(3.0, 3.0)
 @export var rotation_increment_degrees: float = 22.5
 @export var field_dimensions_meters: Vector2 = Vector2(16.540988, 8.069326)
-@export var tests: int = 1000
 
 @onready var tag_directory: Node3D = $TagDirectory
 @onready var camera_directory: Node3D = $CameraDirectory
@@ -71,8 +70,7 @@ func move_robot():
 	camera_directory.global_position.z = 0.0
 	num_camera_changes += 1
 	
-	if num_camera_changes >= tests:
-		database.save(true)
+
 	
 	camera_directory.move_camera()
 	database.new_test(camera_directory.camera_attributes)

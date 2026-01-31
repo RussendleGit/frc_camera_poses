@@ -1,12 +1,13 @@
 extends Node3D
+@onready var database: Node = $"../Database"
 
 @export var max_tag_distance: float = 200.0 / 39.37
 @export var max_tag_skew_degrees: float = 80
 @export var camera_fov_degrees: float = 100.0
 
-@export var camera_translation_increment: float = .5
-@export var camera_rotation_increment_degrees: float = 5.0
-@export var drive_train_dimensions: Vector3 = Vector3(35.0 / 39.37, 30.0 / 39.37, 30.0 / 39.37)
+@export var camera_translation_increment: float = .01
+@export var camera_rotation_increment_degrees: float = 45.0
+@export var drive_train_dimensions: Vector3 = Vector3(25.0 / 39.37, 30.0 / 39.37, 25.0 / 39.37)
 @export var min_cam_hight: float = 0.15
 @export var camera_pitch_limits_degrees: Vector2 = Vector2(-35.0, 35.0)
 
@@ -117,7 +118,8 @@ func filter_april_tags(tags: Array[Node]) -> Array[Node3D]:
 	return viewable_tags
 
 func move_camera():
-	for cam in camera_attributes:
+	for i in range(len(camera_attributes)):
+		var cam = camera_attributes[i]
 		# yaw
 		var new_yaw: float = cam.rotation_degrees.y + camera_rotation_increment_degrees
 		if new_yaw < 180.0: 
@@ -129,23 +131,23 @@ func move_camera():
 		var new_pitch: float = cam.rotation_degrees.z + camera_rotation_increment_degrees
 		if new_pitch > camera_pitch_limits_degrees.x && new_pitch < camera_pitch_limits_degrees.y:
 			cam.rotation_degrees.z += camera_rotation_increment_degrees
-			print("pitching")
 			return
 		cam.rotation_degrees.z = camera_pitch_limits_degrees.x
 
 		# x
 		cam.position.x += camera_translation_increment
-		if cam.position.x < drive_train_dimensions.x: return
-		cam.position.x = -drive_train_dimensions.x
+		if cam.position.x < drive_train_dimensions.x / 2.0: return
+		cam.position.x = -drive_train_dimensions.x / 2.0
 
 		# z
 		cam.position.z += camera_translation_increment
-		if cam.position.z < drive_train_dimensions.z: return
-		cam.position.z = -drive_train_dimensions.z
+		if cam.position.z < drive_train_dimensions.z / 2.0: return
+		cam.position.z = -drive_train_dimensions.z / 2.0
 
 		# y
 		cam.position.y += camera_translation_increment
 		if cam.position.y < drive_train_dimensions.y: return
 		cam.position.y = min_cam_hight
+	database.save(true)
 
 	
