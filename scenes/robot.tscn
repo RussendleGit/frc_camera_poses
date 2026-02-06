@@ -125,8 +125,6 @@ mesh = ExtResource("2_1h3pe")
 skeleton = NodePath("")
 
 [node name="RobotCollision" type="Area3D" parent="CameraDirectory" unique_id=1585652985]
-collision_layer = 0
-collision_mask = 0
 
 [node name="CollisionShape3D32" type="CollisionShape3D" parent="CameraDirectory/RobotCollision" unique_id=506938676]
 transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0.318, 0, 0.381)

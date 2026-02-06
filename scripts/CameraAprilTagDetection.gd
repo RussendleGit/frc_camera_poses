@@ -2,7 +2,7 @@ extends Node3D
 
 
 
-@export var num_poses_grid: Vector2 = Vector2(3.0, 3.0)
+@export var num_poses_grid: Vector2 = Vector2(30.0, 30.0)
 @export var rotation_increment_degrees: float = 22.5
 @export var field_dimensions_meters: Vector2 = Vector2(16.540988, 8.069326)
 

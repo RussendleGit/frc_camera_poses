@@ -17,7 +17,6 @@ compatibility/default_parent_skeleton_in_mesh_instance_3d=true
 config/name="FRC_Camera_poses"
 run/main_scene="res://scenes/test_scene.tscn"
 config/features=PackedStringArray("4.6", "Forward Plus")
-run/max_fps=1000
 run/delta_smoothing=false
 config/icon="res://icon.svg"
 
@@ -26,6 +25,7 @@ config/icon="res://icon.svg"
 window/size/viewport_width=640
 window/size/viewport_height=480
 window/size/initial_position_type=0
+window/vsync/vsync_mode=0
 
 [dotnet]
 
