@@ -5,7 +5,7 @@ extends Node3D
 @export var max_tag_skew_degrees: float = 80
 @export var camera_fov_degrees: float = 100.0
 
-@export var camera_translation_increment: float = .1
+@export var camera_translation_increment: float = .2
 @export var camera_rotation_increment_degrees: float = 1.0
 @export var drive_train_dimensions: Vector3 = Vector3(25.0 / 39.37, 30.0 / 39.37, 30.0 / 39.37)
 @export var min_cam_hight: float = 0.15
